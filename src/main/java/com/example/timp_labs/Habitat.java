@@ -152,7 +152,6 @@ public class Habitat {
             sec = ("0" + sec);
         String time = min + ":" + sec;
         mainController.getLabelTimer().setText(time);
-        mainController.getLabelTimer().setVisible(true);
     }
     public void showTimer(){
         timeFlag = !timeFlag;
