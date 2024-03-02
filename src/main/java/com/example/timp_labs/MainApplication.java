@@ -19,8 +19,8 @@ public class MainApplication extends Application {
         Scene scene = new Scene(root, Habitat.getWidth(), Habitat.getHeight());
         scene.getRoot().requestFocus();
         stage.setMaximized(true);
-        hab.setParamCapital(0.66F, 2);
-        hab.setParamWooden(0.35F, 3);
+        hab.setParamPhysicalPerson(0.66F, 2);
+        hab.setParamJuridicalPerson(0.35F, 3);
         stage.setTitle("Лабораторная №1");
         stage.setScene(scene);
         stage.show();

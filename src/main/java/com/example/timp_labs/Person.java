@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-abstract class Building {
+abstract class Person {
     private String path;
     final ImageView imageIV;
 
@@ -16,7 +16,7 @@ abstract class Building {
         this.path = path;
     }
 
-    public Building(int _x, int _y, String _path) throws FileNotFoundException {
+    public Person(int _x, int _y, String _path) throws FileNotFoundException {
         Image image = new Image(new FileInputStream(_path));
         imageIV = new ImageView(image);
         imageIV.setX(_x);

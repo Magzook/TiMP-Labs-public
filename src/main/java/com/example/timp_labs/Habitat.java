@@ -21,7 +21,7 @@ public class Habitat {
 
     private static int width = 600;
     private static int height = 600;
-    private ArrayList<Building> array = new ArrayList<Building>();
+    private ArrayList<Person> array = new ArrayList<Person>();
 
     private float p1;
     private int n1;
@@ -34,11 +34,11 @@ public class Habitat {
     public static void setInstance(Habitat instance) {
         Habitat.instance = instance;
     }
-    public void setParamCapital(float p, int n){
+    public void setParamPhysicalPerson(float p, int n){
         n1 = n;
         p1 = p;
     }
-    public void setParamWooden(float p, int n){
+    public void setParamJuridicalPerson(float p, int n){
         n2 = n;
         p2 = p;
     }
@@ -106,14 +106,14 @@ public class Habitat {
         float p = rand.nextFloat();
         try {
             if ((time % n1 == 0) && (p1 <= p)) {
-                Capital cap = new Capital(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
-                mainController.getPane().getChildren().add(cap.getImageView());
-                array.add(cap);
+                PhysicalPerson phy = new PhysicalPerson(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
+                mainController.getPane().getChildren().add(phy.getImageView());
+                array.add(phy);
             }
             if ((time % n2 == 0) && (p2 <= p)) {
-                Wooden wood = new Wooden(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
-                mainController.getPane().getChildren().add(wood.getImageView());
-                array.add(wood);
+                JuridicalPerson jur = new JuridicalPerson(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
+                mainController.getPane().getChildren().add(jur.getImageView());
+                array.add(jur);
             }
         }
         catch(FileNotFoundException ex){
@@ -128,7 +128,7 @@ public class Habitat {
 
     public void showStatisticLabel(){
         if (statisticFlag) {
-            String statistic = "Капитальные дома: " + Capital.countCapital+ "\nДеревянные дома: " + Wooden.countWooden;
+            String statistic = "Физические лица: " + PhysicalPerson.countPhysicalPerson+ "\nЮридические лица: " + JuridicalPerson.countJuridicalPerson;
             statistic += "\nВремя: " + (System.currentTimeMillis() - startTime)/1000 + " сек";
             mainController.getStatistic().setText(statistic);
             mainController.getStatistic().setVisible(true);
