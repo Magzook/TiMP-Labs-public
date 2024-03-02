@@ -17,7 +17,7 @@ public class MainApplication extends Application {
         hab = new Habitat(fxmlLoader.getController());
         Habitat.setInstance(hab);
         hab.setParamPhysicalPerson(1, 1);
-        hab.setParamJuridicalPerson(1, 1);
+        hab.setParamJuridicalPerson(1, 2);
 
         Scene scene = new Scene(root, Habitat.getWidth(), Habitat.getHeight());
         scene.getRoot().requestFocus();

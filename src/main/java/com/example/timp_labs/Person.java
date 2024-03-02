@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-abstract class Person {
+abstract class Person implements IBehaviour{
     private String path;
     final ImageView imageIV;
 
