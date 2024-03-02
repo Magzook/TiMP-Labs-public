@@ -9,14 +9,14 @@
   <children>
     <Pane fx:id="modalPane" focusTraversable="true" onKeyPressed="#keyPressed" prefHeight="750.0" prefWidth="900.0">
       <children>
-        <Label fx:id="labelTextTIMER" alignment="CENTER" layoutX="10" layoutY="10" text="Timer:" >
+        <Label fx:id="labelTextTIMER" alignment="CENTER" layoutX="10" layoutY="10" text="Таймер:" >
           <font>
             <Font name="System Bold" size="22.0" />
           </font>
         </Label>
-        <Label fx:id="labelTimer" alignment="CENTER" layoutX="87.0" layoutY="13.0" text="00:00" textFill="#000000">
+        <Label fx:id="labelTimer" alignment="CENTER" layoutX="105.0" layoutY="13.0" text="00:00" textFill="#000000">
           <font>
-            <Font name="Arial Bold Italic" size="22.0" />
+            <Font name="Arial Bold" size="22.0" />
           </font>
         </Label>
         <Label fx:id="statistic" alignment="CENTER" layoutX="105.0" layoutY="271.0" prefHeight="225.0" prefWidth="698.0" textAlignment="CENTER" textFill="#000000" wrapText="true">

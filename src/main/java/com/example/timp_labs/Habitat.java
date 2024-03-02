@@ -19,7 +19,7 @@ public class Habitat {
     private int seconds = 0;
     private int minutes = 0;
 
-    private static int width = 600;
+    private static int width = 1000;
     private static int height = 600;
     private ArrayList<Person> array = new ArrayList<Person>();
 
@@ -54,7 +54,7 @@ public class Habitat {
         startFlag = true;
         timeFlag = true;
         statisticFlag = false;
-        seconds = 0;
+        seconds = -1;
         minutes = 0;
         timer = new Timer();
         showStatisticLabel();
@@ -105,12 +105,12 @@ public class Habitat {
         Random rand = new Random();
         float p = rand.nextFloat();
         try {
-            if ((time % n1 == 0) && (p1 <= p)) {
+            if ((time % n1 == 0) && (p <= p1)) {
                 PhysicalPerson phy = new PhysicalPerson(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
                 mainController.getPane().getChildren().add(phy.getImageView());
                 array.add(phy);
             }
-            if ((time % n2 == 0) && (p2 <= p)) {
+            if ((time % n2 == 0) && (p <= p2)) {
                 JuridicalPerson jur = new JuridicalPerson(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
                 mainController.getPane().getChildren().add(jur.getImageView());
                 array.add(jur);

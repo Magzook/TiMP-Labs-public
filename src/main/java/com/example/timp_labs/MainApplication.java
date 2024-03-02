@@ -16,11 +16,12 @@ public class MainApplication extends Application {
         Parent root = fxmlLoader.load();
         hab = new Habitat(fxmlLoader.getController());
         Habitat.setInstance(hab);
+        hab.setParamPhysicalPerson(1, 1);
+        hab.setParamJuridicalPerson(1, 1);
+
         Scene scene = new Scene(root, Habitat.getWidth(), Habitat.getHeight());
         scene.getRoot().requestFocus();
-        stage.setMaximized(true);
-        hab.setParamPhysicalPerson(0.66F, 2);
-        hab.setParamJuridicalPerson(0.35F, 3);
+        stage.setMaximized(false); // Запуск на весь экран или нет?
         stage.setTitle("Лабораторная №1");
         stage.setScene(scene);
         stage.show();
