@@ -1,8 +1,6 @@
 package com.example.timp_labs;
 
-import javafx.application.Platform;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Habitat {
