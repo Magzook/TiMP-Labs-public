@@ -4,19 +4,16 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Habitat {
-    private static Habitat instance;
-    public Controller mainController;
-
-    public static int width = 1000, height = 600;
+    public int width = 1000, height = 600;
     private ArrayList<Person> array = new ArrayList<Person>();
     private float p1, p2;
     private int n1, n2;
-
-    public Habitat(Controller mainController) {
-        this.mainController = mainController;
-    }
+    private static Habitat instance;
     public static void setInstance(Habitat instance) {
         Habitat.instance = instance;
+    }
+    public static Habitat getInstance() {
+        return instance;
     }
     public void setParamPhysicalPerson(float p, int n){
         n1 = n;
@@ -26,28 +23,29 @@ public class Habitat {
         n2 = n;
         p2 = p;
     }
-    public static int getWidth() {
+    public int getWidth() {
         return width;
     }
-    public static int getHeight() {
+    public int getHeight() {
         return height;
     }
     public ArrayList<Person> getArray() {
         return array;
     }
-    public void update(long time){
+    public void update(long time) {
         Random rand = new Random();
+        Statistics st = Statistics.getInstance();
         float p = rand.nextFloat();
         try {
             if ((time % n1 == 0) && (p <= p1)) {
                 PhysicalPerson phy = new PhysicalPerson(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
-                mainController.getPane().getChildren().add(phy.getImageView());
+                st.mainController.getPane().getChildren().add(phy.getImageView());
                 array.add(phy);
                 PhysicalPerson.count++;
             }
             if ((time % n2 == 0) && (p <= p2)) {
                 JuridicalPerson jur = new JuridicalPerson(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
-                mainController.getPane().getChildren().add(jur.getImageView());
+                st.mainController.getPane().getChildren().add(jur.getImageView());
                 array.add(jur);
                 JuridicalPerson.count++;
             }
@@ -55,8 +53,5 @@ public class Habitat {
         catch(FileNotFoundException ex){
             ex.printStackTrace();
         }
-    }
-    public static Habitat getInstance() {
-        return instance;
     }
 }

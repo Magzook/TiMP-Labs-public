@@ -14,12 +14,14 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Main.fxml"));
         Parent root = fxmlLoader.load();
-        hab = new Habitat(fxmlLoader.getController());
+        hab = new Habitat();
         Habitat.setInstance(hab);
         hab.setParamPhysicalPerson(1, 1);
         hab.setParamJuridicalPerson(1, 2);
+        Statistics stats = new Statistics(fxmlLoader.getController());
+        Statistics.setInstance(stats);
 
-        Scene scene = new Scene(root, Habitat.getWidth(), Habitat.getHeight());
+        Scene scene = new Scene(root, Habitat.getInstance().getWidth(), Habitat.getInstance().getHeight());
         scene.getRoot().requestFocus();
         stage.setMaximized(false); // Запуск на весь экран или нет?
         stage.setTitle("Картотека налоговой инспекции (a.k.a laba 1)");

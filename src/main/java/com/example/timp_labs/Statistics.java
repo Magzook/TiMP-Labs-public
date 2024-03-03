@@ -4,42 +4,53 @@ import java.util.*;
 import javafx.application.Platform;
 
 public class Statistics {
-    public static Timer timer;
-    public static boolean timeFlag, startFlag;
-    private static boolean statisticFlag;
-    private static long startTime;
-    private static int seconds = 0, minutes = 0;
-    public static void showStatisticLabel() {
-        Habitat hab = Habitat.getInstance();
+    public Timer timer;
+    public boolean timeFlag, startFlag;
+    private boolean statisticFlag;
+    private long startTime;
+    private int seconds = 0, minutes = 0;
+    public Controller mainController;
+    private static Statistics instance;
+    public Statistics(Controller mainController) {
+        this.mainController = mainController;
+    }
+    public static void setInstance(Statistics instance) {
+        Statistics.instance = instance;
+    }
+    public static Statistics getInstance() {
+        return instance;
+    }
+    public void showStatisticLabel() {
+
         if (statisticFlag) {
             String statistic = "Физические лица: " + PhysicalPerson.count+ "\nЮридические лица: " + JuridicalPerson.count;
             statistic += "\nВремя: " + (System.currentTimeMillis() - startTime)/1000 + " сек";
-            hab.mainController.getStatistic().setText(statistic);
-            hab.mainController.getStatistic().setVisible(true);
-            hab.mainController.getLabelTimer().setVisible(false);
-            hab.mainController.getLabelTextTIMER().setVisible(false);
+            mainController.getStatistic().setText(statistic);
+            mainController.getStatistic().setVisible(true);
+            mainController.getLabelTimer().setVisible(false);
+            mainController.getLabelTextTIMER().setVisible(false);
         }
         else {
-            hab.mainController.getStatistic().setVisible(false);
-            hab.mainController.getStatistic().setText("");
-            hab.mainController.getLabelTimer().setVisible(true);
-            hab.mainController.getLabelTextTIMER().setVisible(true);
+            mainController.getStatistic().setVisible(false);
+            mainController.getStatistic().setText("");
+            mainController.getLabelTimer().setVisible(true);
+            mainController.getLabelTextTIMER().setVisible(true);
         }
     }
-    public static void showTimer() {
-        Habitat hab = Habitat.getInstance();
+    public void showTimer() {
+
         timeFlag = !timeFlag;
         if (timeFlag) {
-            hab.mainController.getLabelTextTIMER().setVisible(true);
-            hab.mainController.getLabelTimer().setVisible(true);
+            mainController.getLabelTextTIMER().setVisible(true);
+            mainController.getLabelTimer().setVisible(true);
         }
         else {
-            hab.mainController.getLabelTextTIMER().setVisible(false);
-            hab.mainController.getLabelTimer().setVisible(false);
+            mainController.getLabelTextTIMER().setVisible(false);
+            mainController.getLabelTimer().setVisible(false);
         }
     }
-    public static void updateTimer() {
-        Habitat hab = Habitat.getInstance();
+    public void updateTimer() {
+
         String min = minutes + "";
         String sec = seconds + "";
         if (min.length() < 2)
@@ -47,10 +58,10 @@ public class Statistics {
         if (sec.length() < 2)
             sec = ("0" + sec);
         String time = min + ":" + sec;
-        hab.mainController.getLabelTimer().setText(time);
+        mainController.getLabelTimer().setText(time);
     }
-    public static void startAction() {
-        Habitat hab = Habitat.getInstance();
+    public void startAction() {
+
         startFlag = timeFlag = true;
         statisticFlag = false;
         seconds = -1;
@@ -73,8 +84,9 @@ public class Statistics {
             }
         }, 0, 1000);
     }
-    public static void stopAction() {
+    public void stopAction() {
         Habitat hab = Habitat.getInstance();
+
         startFlag = timeFlag = false;
         statisticFlag = true;
         showStatisticLabel();
@@ -82,7 +94,7 @@ public class Statistics {
         timer = new Timer();
         startTime = System.currentTimeMillis();
 
-        hab.getArray().forEach((tmp) -> hab.mainController.getPane().getChildren().remove(tmp.getImageView()));
+        hab.getArray().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView()));
         hab.getArray().clear();
         PhysicalPerson.count = 0;
         JuridicalPerson.count = 0;

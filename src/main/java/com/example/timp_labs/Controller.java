@@ -30,15 +30,16 @@ public class Controller {
     @FXML
     void keyPressed(KeyEvent keyEvent) {
         keyEvent.consume();
+        Statistics st = Statistics.getInstance();
         if (keyEvent.getCode().equals(KeyCode.T)) {
-            Statistics.showTimer();
+            st.showTimer();
         } else if (keyEvent.getCode().equals(KeyCode.B)) {
-            if (!Statistics.startFlag) {
-                Statistics.startAction();
+            if (!st.startFlag) {
+                st.startAction();
             }
         } else if (keyEvent.getCode().equals(KeyCode.E)) {
-            if (Statistics.startFlag) {
-                Statistics.stopAction();
+            if (st.startFlag) {
+                st.stopAction();
             }
         }
     }
