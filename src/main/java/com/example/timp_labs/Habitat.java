@@ -1,15 +1,11 @@
 package com.example.timp_labs;
 
 import javafx.application.Platform;
-
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class Habitat {
-    private static volatile Habitat instance;
+    private static Habitat instance;
     public Controller mainController;
     public static Timer timer;
     public boolean timeFlag, startFlag;
@@ -41,13 +37,17 @@ public class Habitat {
     public static int getHeight() {
         return height;
     }
+    public boolean getStatisticFlag() {return statisticFlag; }
+    public long getStartTime() {return startTime; }
+    public int getMinutes() {return minutes;}
+    public int getSeconds() {return seconds;}
     public void startAction() {
         startFlag = timeFlag = true;
         statisticFlag = false;
         seconds = -1;
         minutes = 0;
         timer = new Timer();
-        showStatisticLabel();
+        Controller.showStatisticLabel();
         startTime = System.currentTimeMillis();
         timer.schedule(new TimerTask() {
             @Override
@@ -58,7 +58,7 @@ public class Habitat {
                     seconds = 0;
                 }
                 Platform.runLater(() -> {
-                    updateTimer();
+                    Controller.updateTimer();
                     update((System.currentTimeMillis() - startTime)/1000);
                 });
             }
@@ -67,7 +67,7 @@ public class Habitat {
     public void stopAction() {
         startFlag = timeFlag = false;
         statisticFlag = true;
-        showStatisticLabel();
+        Controller.showStatisticLabel();
         timer.cancel();
         timer = new Timer();
         startTime = System.currentTimeMillis();
@@ -98,50 +98,7 @@ public class Habitat {
             ex.printStackTrace();
         }
     }
-    public void showStatisticLabel(){
-        if (statisticFlag) {
-            String statistic = "Физические лица: " + PhysicalPerson.count+ "\nЮридические лица: " + JuridicalPerson.count;
-            statistic += "\nВремя: " + (System.currentTimeMillis() - startTime)/1000 + " сек";
-            mainController.getStatistic().setText(statistic);
-            mainController.getStatistic().setVisible(true);
-            mainController.getLabelTimer().setVisible(false);
-            mainController.getLabelTextTIMER().setVisible(false);
-        }
-        else{
-            mainController.getStatistic().setVisible(false);
-            mainController.getStatistic().setText("");
-            mainController.getLabelTimer().setVisible(true);
-            mainController.getLabelTextTIMER().setVisible(true);
-        }
-    }
-    public void updateTimer(){
-        String min = minutes + "";
-        String sec = seconds + "";
-        if (min.length() < 2)
-            min = "0"+ min;
-        if (sec.length() < 2)
-            sec = ("0" + sec);
-        String time = min + ":" + sec;
-        mainController.getLabelTimer().setText(time);
-    }
-    public void showTimer(){
-        timeFlag = !timeFlag;
-        if (timeFlag) {
-            mainController.getLabelTextTIMER().setVisible(true);
-            mainController.getLabelTimer().setVisible(true);
-        }
-        else {
-            mainController.getLabelTextTIMER().setVisible(false);
-            mainController.getLabelTimer().setVisible(false);
-        }
-    }
     public static Habitat getInstance() {
-        Habitat localInstance = instance;
-        if (localInstance == null) {
-            synchronized (Habitat.class) {
-                localInstance = instance;
-            }
-        }
-        return localInstance;
+        return instance;
     }
 }

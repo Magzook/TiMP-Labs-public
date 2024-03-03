@@ -22,7 +22,6 @@ public class Controller {
     public Label getLabelTextTIMER() {
         return labelTextTIMER;
     }
-
     public Label getLabelTimer() {
         return labelTimer;
     }
@@ -36,17 +35,57 @@ public class Controller {
     @FXML
     void keyPressed(KeyEvent keyEvent) {
         keyEvent.consume();
+        Habitat hab = Habitat.getInstance();
         if (keyEvent.getCode().equals(KeyCode.T)) {
-            Habitat.getInstance().showTimer();
+            showTimer();
         } else if (keyEvent.getCode().equals(KeyCode.B)) {
-            if (!Habitat.getInstance().startFlag) {
-                Habitat.getInstance().startAction();
+            if (!hab.startFlag) {
+                hab.startAction();
             }
         } else if (keyEvent.getCode().equals(KeyCode.E)) {
-            if (Habitat.getInstance().startFlag) {
-                Habitat.getInstance().stopAction();
+            if (hab.startFlag) {
+                hab.stopAction();
             }
         }
-
+    }
+    public static void showStatisticLabel() {
+        Habitat hab = Habitat.getInstance();
+        if (hab.getStatisticFlag()) {
+            String statistic = "Физические лица: " + PhysicalPerson.count+ "\nЮридические лица: " + JuridicalPerson.count;
+            statistic += "\nВремя: " + (System.currentTimeMillis() - hab.getStartTime())/1000 + " сек";
+            hab.mainController.getStatistic().setText(statistic);
+            hab.mainController.getStatistic().setVisible(true);
+            hab.mainController.getLabelTimer().setVisible(false);
+            hab.mainController.getLabelTextTIMER().setVisible(false);
+        }
+        else {
+            hab.mainController.getStatistic().setVisible(false);
+            hab.mainController.getStatistic().setText("");
+            hab.mainController.getLabelTimer().setVisible(true);
+            hab.mainController.getLabelTextTIMER().setVisible(true);
+        }
+    }
+    public static void showTimer(){
+        Habitat hab = Habitat.getInstance();
+        hab.timeFlag = !hab.timeFlag;
+        if (hab.timeFlag) {
+            hab.mainController.getLabelTextTIMER().setVisible(true);
+            hab.mainController.getLabelTimer().setVisible(true);
+        }
+        else {
+            hab.mainController.getLabelTextTIMER().setVisible(false);
+            hab.mainController.getLabelTimer().setVisible(false);
+        }
+    }
+    public static void updateTimer() {
+        Habitat hab = Habitat.getInstance();
+        String min = hab.getMinutes() + "";
+        String sec = hab.getSeconds() + "";
+        if (min.length() < 2)
+            min = "0"+ min;
+        if (sec.length() < 2)
+            sec = ("0" + sec);
+        String time = min + ":" + sec;
+        hab.mainController.getLabelTimer().setText(time);
     }
 }

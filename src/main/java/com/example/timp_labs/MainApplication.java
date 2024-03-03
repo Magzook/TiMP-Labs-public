@@ -22,7 +22,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(root, Habitat.getWidth(), Habitat.getHeight());
         scene.getRoot().requestFocus();
         stage.setMaximized(false); // Запуск на весь экран или нет?
-        stage.setTitle("Лабораторная №1");
+        stage.setTitle("Лабораторная №100");
         stage.setScene(scene);
         stage.show();
     }
