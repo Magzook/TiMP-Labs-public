@@ -2,17 +2,14 @@ package com.example.timp_labs;
 
 import javafx.application.Platform;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Habitat {
     private static Habitat instance;
     public Controller mainController;
-    public static Timer timer;
-    public boolean timeFlag, startFlag;
-    private boolean statisticFlag;
-    private long startTime;
-    private int seconds = 0, minutes = 0;
-    private static int width = 1000, height = 600;
+
+    public static int width = 1000, height = 600;
     private ArrayList<Person> array = new ArrayList<Person>();
     private float p1, p2;
     private int n1, n2;
@@ -37,45 +34,8 @@ public class Habitat {
     public static int getHeight() {
         return height;
     }
-    public boolean getStatisticFlag() {return statisticFlag; }
-    public long getStartTime() {return startTime; }
-    public int getMinutes() {return minutes;}
-    public int getSeconds() {return seconds;}
-    public void startAction() {
-        startFlag = timeFlag = true;
-        statisticFlag = false;
-        seconds = -1;
-        minutes = 0;
-        timer = new Timer();
-        Controller.showStatisticLabel();
-        startTime = System.currentTimeMillis();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run(){
-                seconds++;
-                if (seconds == 60){
-                    minutes++;
-                    seconds = 0;
-                }
-                Platform.runLater(() -> {
-                    Controller.updateTimer();
-                    update((System.currentTimeMillis() - startTime)/1000);
-                });
-            }
-        }, 0, 1000);
-    }
-    public void stopAction() {
-        startFlag = timeFlag = false;
-        statisticFlag = true;
-        Controller.showStatisticLabel();
-        timer.cancel();
-        timer = new Timer();
-        startTime = System.currentTimeMillis();
-
-        array.forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView()));
-        array.clear();
-        PhysicalPerson.count = 0;
-        JuridicalPerson.count = 0;
+    public ArrayList<Person> getArray() {
+        return array;
     }
     public void update(long time){
         Random rand = new Random();
