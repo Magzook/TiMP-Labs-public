@@ -4,24 +4,16 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Habitat {
-    public int width = 1000, height = 600;
+    private int width = 1000, height = 600;
+    private int n1 = 1, n2 = 2;
+    private float p1 = 1, p2 = 1;
     private ArrayList<Person> array = new ArrayList<Person>();
-    private float p1, p2;
-    private int n1, n2;
     private static Habitat instance;
     public static void setInstance(Habitat instance) {
         Habitat.instance = instance;
     }
     public static Habitat getInstance() {
         return instance;
-    }
-    public void setParamPhysicalPerson(float p, int n){
-        n1 = n;
-        p1 = p;
-    }
-    public void setParamJuridicalPerson(float p, int n){
-        n2 = n;
-        p2 = p;
     }
     public int getWidth() {
         return width;
