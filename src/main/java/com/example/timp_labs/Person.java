@@ -7,22 +7,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 abstract class Person implements IBehaviour {
-    private String path;
-    final ImageView imageIV;
-    public String getPath() {
-        return path;
+    Image image;
+    public Person(String path) throws FileNotFoundException {
+        image = new Image(new FileInputStream(path));
     }
-    public void setPath(String path) {
-        this.path = path;
-    }
-    public Person(int _x, int _y, String _path) throws FileNotFoundException {
-        Image image = new Image(new FileInputStream(_path));
-        imageIV = new ImageView(image);
-        imageIV.setX(_x);
-        imageIV.setY(_y);
-        imageIV.setFitWidth(80);
-        imageIV.setFitHeight(90);
-        imageIV.setPreserveRatio(true);
-    }
-    public ImageView getImageView() {return imageIV;}
+    public abstract ImageView getImageView();
 }

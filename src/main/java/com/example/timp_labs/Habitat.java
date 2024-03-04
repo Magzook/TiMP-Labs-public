@@ -30,13 +30,13 @@ public class Habitat {
         float p = rand.nextFloat();
         try {
             if ((time % n1 == 0) && (p <= p1)) {
-                PhysicalPerson phy = new PhysicalPerson(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
+                PhysicalPerson phy = new PhysicalPerson(rand.nextInt(0, width) - 40, rand.nextInt(0, height) - 40);
                 st.mainController.getPane().getChildren().add(phy.getImageView());
                 array.add(phy);
                 PhysicalPerson.count++;
             }
             if ((time % n2 == 0) && (p <= p2)) {
-                JuridicalPerson jur = new JuridicalPerson(rand.nextInt(0, width) - 60, rand.nextInt(0, height) - 40);
+                JuridicalPerson jur = new JuridicalPerson(rand.nextInt(0, width) - 40, rand.nextInt(0, height) - 40);
                 st.mainController.getPane().getChildren().add(jur.getImageView());
                 array.add(jur);
                 JuridicalPerson.count++;

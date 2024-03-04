@@ -82,18 +82,16 @@ public class Statistics {
                     Habitat.getInstance().update((System.currentTimeMillis() - startTime)/1000);
                 });
             }
-        }, 0, 1000);
+        }, 4, 1000);
     }
     public void stopAction() {
         Habitat hab = Habitat.getInstance();
-
         startFlag = timeFlag = false;
         statisticFlag = true;
         showStatisticLabel();
         timer.cancel();
         timer = new Timer();
         startTime = System.currentTimeMillis();
-
         hab.getArray().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView()));
         hab.getArray().clear();
         PhysicalPerson.count = 0;
