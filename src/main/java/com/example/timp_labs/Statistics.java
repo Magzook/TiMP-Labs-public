@@ -38,7 +38,6 @@ public class Statistics {
         }
     }
     public void showTimer() {
-
         timeFlag = !timeFlag;
         if (timeFlag) {
             mainController.getLabelTextTIMER().setVisible(true);
@@ -50,7 +49,6 @@ public class Statistics {
         }
     }
     public void updateTimer() {
-
         String min = minutes + "";
         String sec = seconds + "";
         if (min.length() < 2)

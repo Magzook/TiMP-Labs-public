@@ -31,6 +31,23 @@ public class Controller {
     void keyPressed(KeyEvent keyEvent) {
         keyEvent.consume();
         Statistics st = Statistics.getInstance();
+        switch (keyEvent.getCode())
+        {
+            case KeyCode.T:
+                st.showTimer();
+                break;
+            case KeyCode.B:
+                if (!st.startFlag) {
+                    st.startAction();
+                }
+                break;
+            case KeyCode.E:
+                if (st.startFlag) {
+                    st.stopAction();
+                }
+                break;
+        }
+        /*
         if (keyEvent.getCode().equals(KeyCode.T)) {
             st.showTimer();
         } else if (keyEvent.getCode().equals(KeyCode.B)) {
@@ -42,5 +59,7 @@ public class Controller {
                 st.stopAction();
             }
         }
+
+         */
     }
 }
