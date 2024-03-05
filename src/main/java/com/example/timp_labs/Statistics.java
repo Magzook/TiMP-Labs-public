@@ -1,6 +1,9 @@
 package com.example.timp_labs;
 
 import java.util.*;
+
+import com.example.timp_labs.model.JuridicalPerson;
+import com.example.timp_labs.model.PhysicalPerson;
 import javafx.application.Platform;
 
 public class Statistics {

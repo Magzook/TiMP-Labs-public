@@ -1,5 +1,9 @@
 package com.example.timp_labs;
 
+import com.example.timp_labs.model.JuridicalPerson;
+import com.example.timp_labs.model.Person;
+import com.example.timp_labs.model.PhysicalPerson;
+
 import java.io.FileNotFoundException;
 import java.util.*;
 
