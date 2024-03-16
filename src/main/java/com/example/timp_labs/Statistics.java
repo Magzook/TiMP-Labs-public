@@ -83,7 +83,7 @@ public class Statistics {
                     Habitat.getInstance().update((System.currentTimeMillis() - startTime)/1000);
                 });
             }
-        }, 4, 1000);
+        }, 4, 100);
     }
     public void stopAction() {
         Habitat hab = Habitat.getInstance();

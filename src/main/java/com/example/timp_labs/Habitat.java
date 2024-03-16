@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Habitat {
-    private int width = 1000, height = 600;
+    private int width = 1300, height = 600;
     private int n1 = 1, n2 = 2;
     private float p1 = 1, p2 = 1;
     private ArrayList<Person> array = new ArrayList<Person>();
@@ -34,13 +34,15 @@ public class Habitat {
         float p = rand.nextFloat();
         try {
             if ((time % n1 == 0) && (p <= p1)) {
-                PhysicalPerson phy = new PhysicalPerson(rand.nextInt(0, width) - 40, rand.nextInt(0, height) - 40);
+                // [0; 1000] при width = 1300
+                // [0; 520] при height = 600
+                PhysicalPerson phy = new PhysicalPerson(rand.nextInt(0, width - 300), rand.nextInt(0, height - 80));
                 st.mainController.getPane().getChildren().add(phy.getImageView());
                 array.add(phy);
                 PhysicalPerson.count++;
             }
             if ((time % n2 == 0) && (p <= p2)) {
-                JuridicalPerson jur = new JuridicalPerson(rand.nextInt(0, width) - 40, rand.nextInt(0, height) - 40);
+                JuridicalPerson jur = new JuridicalPerson(rand.nextInt(0, width - 300), rand.nextInt(0, height - 80));
                 st.mainController.getPane().getChildren().add(jur.getImageView());
                 array.add(jur);
                 JuridicalPerson.count++;
