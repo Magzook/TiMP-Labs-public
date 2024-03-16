@@ -22,7 +22,7 @@ public class MainApplication extends Application {
         Scene scene = new Scene(root, Habitat.getInstance().getWidth(), Habitat.getInstance().getHeight());
         scene.getRoot().requestFocus();
         stage.setMaximized(false); // Запуск на весь экран или нет?
-        stage.setTitle("Картотека налоговой инспекции (a.k.a laba 1)");
+        stage.setTitle("Картотека налоговой инспекции");
         stage.setScene(scene);
         stage.show();
     }

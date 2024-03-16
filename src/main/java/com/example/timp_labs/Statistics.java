@@ -87,7 +87,7 @@ public class Statistics {
     }
     public void stopAction() {
         Habitat hab = Habitat.getInstance();
-        startFlag = timeFlag = false;
+        startFlag = false;
         statisticFlag = true;
         showStatisticLabel();
         timer.cancel();
