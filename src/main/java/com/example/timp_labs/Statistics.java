@@ -78,7 +78,7 @@ public class Statistics {
                 }
                 Platform.runLater(() -> {
                     updateTimer();
-                    if (seconds >= 1) {
+                    if (seconds >= 1 || minutes >= 1) {
                         Habitat.getInstance().update();
                     }
                 });
@@ -116,6 +116,8 @@ public class Statistics {
                 restartFlag = true;
                 mainController.fieldN1.setDisable(false);
                 mainController.fieldN2.setDisable(false);
+                mainController.boxP1.setDisable(false);
+                mainController.boxP2.setDisable(false);
             }
             else {
                 mainController.btnStart.setDisable(true);

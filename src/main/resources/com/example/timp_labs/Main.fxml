@@ -39,11 +39,11 @@
             <Font name="Arial Bold" size="15.0" />
           </font>
         </Button>
-        <RadioButton fx:id="btnShowInfo" text="Показывать информацию" layoutX="-190" layoutY="100" prefHeight="30" prefWidth="200">
+        <CheckBox fx:id="btnShowInfo" text="Показывать информацию" layoutX="-190" layoutY="100" prefHeight="30" prefWidth="200">
           <font>
             <Font name="Arial" size="13.0" />
           </font>
-        </RadioButton>
+        </CheckBox>
 
         <fx:define>
           <ToggleGroup fx:id="group"/>
@@ -66,19 +66,36 @@
             <Font name="System Bold" size="14.0" />
           </font>
         </Label>
-        <Label layoutX="-190" layoutY="215" text="Физические лица" >
+        <Label layoutX="-195" layoutY="215" text="Физические лица" >
           <font>
-            <Font name="System" size="14.0" />
+            <Font name="System" size="13.0" />
           </font>
         </Label>
-        <Label layoutX="-190" layoutY="235" text="Юридические лица" >
+        <Label layoutX="-195" layoutY="235" text="Юридические лица" >
           <font>
-            <Font name="System" size="14.0" />
+            <Font name="System" size="13.0" />
           </font>
         </Label>
         <TextField fx:id="fieldN1" layoutX="-50" layoutY="210" prefWidth="35" />
         <TextField fx:id="fieldN2" layoutX="-50" layoutY="235" prefWidth="35" />
 
+        <Label layoutX="-190" layoutY="260" text="Вероятности рождения" >
+          <font>
+            <Font name="System Bold" size="14.0" />
+          </font>
+        </Label>
+        <Label layoutX="-195" layoutY="285" text="Физические лица" >
+          <font>
+            <Font name="System" size="13.0" />
+          </font>
+        </Label>
+        <Label layoutX="-195" layoutY="305" text="Юридические лица" >
+          <font>
+            <Font name="System" size="13.0" />
+          </font>
+        </Label>
+        <ComboBox fx:id="boxP1" layoutX="-75" layoutY="280" />
+        <ComboBox fx:id="boxP2" layoutX="-75" layoutY="305" />
 
       </children>
     </Pane>

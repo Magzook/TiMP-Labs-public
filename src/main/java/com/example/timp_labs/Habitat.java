@@ -9,8 +9,8 @@ import java.util.*;
 
 public class Habitat {
     private int width = 1300, height = 600;
-    public int n1 = 1, n2 = 2;
-    private float p1 = 1, p2 = 1;
+    public int n1, n2;
+    public float p1, p2;
     private ArrayList<Person> array = new ArrayList<Person>();
     private static Habitat instance;
     public static void setInstance(Habitat instance) {
