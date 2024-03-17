@@ -62,10 +62,12 @@ public class Controller {
             }
         }
         catch (NumberFormatException ex) {
+            fieldN1.setText("1");
+            fieldN2.setText("2");
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Ошибка!");
+            alert.setTitle("Ошибка");
             alert.setHeaderText("Некорректный период рождения");
-            alert.setContentText("Введите целое положительное число, не превышающее 2^31-1");
+            alert.setContentText("Требуется целое положительное число, не превышающее 2^31-1. Выставлены значения по умолчанию.");
             alert.showAndWait();
         }
     }

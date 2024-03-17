@@ -76,8 +76,9 @@
             <Font name="System" size="14.0" />
           </font>
         </Label>
-        <TextField fx:id="fieldN1" layoutX="-50" layoutY="210" prefWidth="30" />
-        <TextField fx:id="fieldN2" layoutX="-50" layoutY="235" prefWidth="30" />
+        <TextField fx:id="fieldN1" layoutX="-50" layoutY="210" prefWidth="35" />
+        <TextField fx:id="fieldN2" layoutX="-50" layoutY="235" prefWidth="35" />
+
 
       </children>
     </Pane>
