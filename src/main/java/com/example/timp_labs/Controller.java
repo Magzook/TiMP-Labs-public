@@ -1,9 +1,7 @@
 package com.example.timp_labs;
 
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -46,13 +44,8 @@ public class Controller {
     @FXML
     public RadioButton btnHideTime;
     @FXML
-    void initialize()
-    {
+    void initialize() {
         btnStop.setDisable(true); // Кнопка "Стоп" изначально заблокирована
-
-        ToggleGroup tg = new ToggleGroup();
-        btnShowTime.setToggleGroup(tg);
-        btnHideTime.setToggleGroup(tg);
         btnShowTime.setSelected(true); // Переключатель "Показать время" изначально выбран
     }
     @FXML
@@ -69,25 +62,24 @@ public class Controller {
         Statistics st = Statistics.getInstance();
         btnStart.setDisable(false);
         btnStop.setDisable(true);
+        if (!btnShowInfo.isSelected()) {
+            st.restartFlag = true;
+        }
         if (st.startFlag) {
             st.stopAction();
         }
     }
     @FXML
-    private void clickShowInfo(ActionEvent event)
-    {
-        //Отображать окно со статистикой и временем
-        //если кнопка нажата
-    }
-    @FXML
-    private void clickShowTime(ActionEvent event)
-    {
-         
-    }
-    @FXML
-    private void clickHideTime(ActionEvent event)
-    {
-
+    private void clickTimeSwitch(ActionEvent event) {
+        Statistics st = Statistics.getInstance();
+        if (btnShowTime.isSelected()) {
+            st.timeFlag = false;
+        }
+        else if (btnHideTime.isSelected())
+        {
+            st.timeFlag = true;
+        }
+        st.showTimer();
     }
     @FXML
     void keyPressed(KeyEvent keyEvent) {
@@ -96,14 +88,29 @@ public class Controller {
         switch (keyEvent.getCode()) {
             case KeyCode.T:
                 st.showTimer();
+                if (btnShowTime.isSelected()) {
+                    btnShowTime.setSelected(false);
+                    btnHideTime.setSelected(true);
+                }
+                else if (btnHideTime.isSelected()) {
+                    btnShowTime.setSelected(true);
+                    btnHideTime.setSelected(false);
+                }
                 break;
             case KeyCode.B:
                 if (!st.startFlag) {
                     st.startAction();
+                    btnStart.setDisable(true);
+                    btnStop.setDisable(false);
                 }
                 break;
             case KeyCode.E:
+                if (!btnShowInfo.isSelected()) {
+                    st.restartFlag = true;
+                }
                 if (st.startFlag) {
+                    btnStart.setDisable(false);
+                    btnStop.setDisable(true);
                     st.stopAction();
                 }
                 break;

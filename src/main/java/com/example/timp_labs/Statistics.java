@@ -5,13 +5,15 @@ import java.util.*;
 import com.example.timp_labs.model.JuridicalPerson;
 import com.example.timp_labs.model.PhysicalPerson;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextArea;
 
 public class Statistics {
     public Timer timer;
-    public boolean timeFlag, startFlag;
-    private boolean statisticFlag;
-    private long startTime;
-    private int seconds = 0, minutes = 0;
+    public boolean timeFlag = true, startFlag, restartFlag = false, firstActionFlag = true;
+    private long startTime, prevTime;
+    private int seconds = -1, minutes = 0;
     public Controller mainController;
     private static Statistics instance;
     public Statistics(Controller mainController) {
@@ -22,23 +24,6 @@ public class Statistics {
     }
     public static Statistics getInstance() {
         return instance;
-    }
-    public void showStatisticLabel() {
-
-        if (statisticFlag) {
-            String statistic = "Физические лица: " + PhysicalPerson.count+ "\nЮридические лица: " + JuridicalPerson.count;
-            statistic += "\nВремя: " + (System.currentTimeMillis() - startTime)/1000 + " сек";
-            mainController.getStatistic().setText(statistic);
-            mainController.getStatistic().setVisible(true);
-            mainController.getLabelTimer().setVisible(false);
-            mainController.getLabelTextTIMER().setVisible(false);
-        }
-        else {
-            mainController.getStatistic().setVisible(false);
-            mainController.getStatistic().setText("");
-            mainController.getLabelTimer().setVisible(true);
-            mainController.getLabelTextTIMER().setVisible(true);
-        }
     }
     public void showTimer() {
         timeFlag = !timeFlag;
@@ -62,14 +47,23 @@ public class Statistics {
         mainController.getLabelTimer().setText(time);
     }
     public void startAction() {
+        Habitat hab = Habitat.getInstance();
 
-        startFlag = timeFlag = true;
-        statisticFlag = false;
-        seconds = -1;
-        minutes = 0;
-        timer = new Timer();
-        showStatisticLabel();
-        startTime = System.currentTimeMillis();
+        if (restartFlag || firstActionFlag) {
+            hab.getArray().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView()));
+            hab.getArray().clear();
+            PhysicalPerson.count = 0;
+            JuridicalPerson.count = 0;
+            seconds = -1;
+            minutes = 0;
+            timer = new Timer();
+            startTime = System.currentTimeMillis();
+            restartFlag = false;
+            firstActionFlag = false;
+        }
+
+        startFlag = true;
+
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -80,7 +74,9 @@ public class Statistics {
                 }
                 Platform.runLater(() -> {
                     updateTimer();
-                    Habitat.getInstance().update((System.currentTimeMillis() - startTime)/1000);
+                    if (seconds >= 1) {
+                        Habitat.getInstance().update((System.currentTimeMillis() - startTime)/1000);
+                    }
                 });
             }
         }, 4, 100);
@@ -88,14 +84,39 @@ public class Statistics {
     public void stopAction() {
         Habitat hab = Habitat.getInstance();
         startFlag = false;
-        statisticFlag = true;
-        showStatisticLabel();
+
         timer.cancel();
         timer = new Timer();
-        startTime = System.currentTimeMillis();
-        hab.getArray().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView()));
-        hab.getArray().clear();
-        PhysicalPerson.count = 0;
-        JuridicalPerson.count = 0;
+
+        if (mainController.btnShowInfo.isSelected()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Статистика");
+            alert.setHeaderText("OK - прекратить симуляцию\nCancel - продолжить симуляцию");
+            String statistic = "Физические лица: " + PhysicalPerson.count+ "\nЮридические лица: " + JuridicalPerson.count;
+            statistic += "\nВремя: ";
+            if (minutes >= 1)
+            {
+                statistic += minutes + " мин ";
+            }
+            statistic += seconds + " сек";
+
+            TextArea textArea = new TextArea(statistic);
+            textArea.setPrefColumnCount(20);
+            textArea.setPrefRowCount(5);
+            textArea.setEditable(false);
+            textArea.setWrapText(true);
+            alert.getDialogPane().setContent(textArea);
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                restartFlag = true;
+            }
+            else {
+                mainController.btnStart.setDisable(true);
+                mainController.btnStop.setDisable(false);
+                startAction();
+            }
+        }
+
     }
 }

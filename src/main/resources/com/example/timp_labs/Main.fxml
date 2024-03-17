@@ -29,31 +29,36 @@
           </font>
         </Label>
 
-        <Button fx:id="btnStart" text="Старт" onAction="#clickStart" layoutX="-190" layoutY="40" prefHeight="50" prefWidth="80">
+        <Button fx:id="btnStart" text="Старт (B)" onAction="#clickStart" layoutX="-190" layoutY="40" prefHeight="50" prefWidth="90">
           <font>
-            <Font name="Arial Bold" size="18.0" />
+            <Font name="Arial Bold" size="15.0" />
           </font>
         </Button>
-        <Button fx:id="btnStop" text="Стоп" onAction="#clickStop" layoutX="-100" layoutY="40" prefHeight="50" prefWidth="80">
+        <Button fx:id="btnStop" text="Стоп (E)" onAction="#clickStop" layoutX="-100" layoutY="40" prefHeight="50" prefWidth="90">
           <font>
-            <Font name="Arial Bold" size="18.0" />
+            <Font name="Arial Bold" size="15.0" />
           </font>
         </Button>
-        <RadioButton fx:id="btnShowInfo" text="Показывать информацию" onAction="#clickShowInfo" layoutX="-190" layoutY="100" prefHeight="30" prefWidth="200">
+        <RadioButton fx:id="btnShowInfo" text="Показывать информацию" layoutX="-190" layoutY="100" prefHeight="30" prefWidth="200">
           <font>
             <Font name="Arial" size="13.0" />
           </font>
         </RadioButton>
-        <RadioButton fx:id="btnShowTime" text="Показать время" onAction="#clickShowTime" layoutX="-190" layoutY="130" prefHeight="30" prefWidth="200">
+
+        <fx:define>
+          <ToggleGroup fx:id="group"/>
+        </fx:define>
+        <RadioButton fx:id="btnShowTime" toggleGroup="$group" text="Показать время (T)" onAction="#clickTimeSwitch" layoutX="-190" layoutY="130" prefHeight="30" prefWidth="200">
           <font>
             <Font name="Arial" size="13.0" />
           </font>
         </RadioButton>
-        <RadioButton fx:id="btnHideTime" text="Скрыть время" onAction="#clickHideTime" layoutX="-190" layoutY="150" prefHeight="30" prefWidth="200">
+        <RadioButton fx:id="btnHideTime" toggleGroup="$group" text="Скрыть время (T)" onAction="#clickTimeSwitch" layoutX="-190" layoutY="150" prefHeight="30" prefWidth="200">
           <font>
             <Font name="Arial" size="13.0" />
           </font>
         </RadioButton>
+
         <Rectangle height="600" width="8" fill="black"/>
 
       </children>
