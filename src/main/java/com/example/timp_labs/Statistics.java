@@ -12,7 +12,6 @@ import javafx.scene.control.TextArea;
 public class Statistics {
     public Timer timer;
     public boolean timeFlag = true, startFlag, restartFlag = false, firstActionFlag = true;
-    private long startTime, prevTime;
     private int seconds = -1, minutes = 0;
     public Controller mainController;
     private static Statistics instance;
@@ -25,8 +24,7 @@ public class Statistics {
     public static Statistics getInstance() {
         return instance;
     }
-    public long getTime()
-    {
+    public long getTime() {
         return minutes * 60 + seconds;
     }
     public void showTimer() {
@@ -61,7 +59,6 @@ public class Statistics {
             seconds = -1;
             minutes = 0;
             timer = new Timer();
-            startTime = System.currentTimeMillis();
             restartFlag = false;
             firstActionFlag = false;
         }
@@ -86,9 +83,7 @@ public class Statistics {
         }, 4, 100);
     }
     public void stopAction() {
-        Habitat hab = Habitat.getInstance();
         startFlag = false;
-
         timer.cancel();
         timer = new Timer();
 

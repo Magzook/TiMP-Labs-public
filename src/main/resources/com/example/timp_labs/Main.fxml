@@ -23,11 +23,6 @@
             <Font name="Arial Bold" size="22.0" />
           </font>
         </Label>
-        <Label fx:id="statistic" alignment="CENTER" layoutX="105.0" layoutY="271.0" prefHeight="225.0" prefWidth="698.0" textAlignment="CENTER" textFill="#000000" wrapText="true">
-          <font>
-            <Font name="JetBrains Mono SemiBold" size="26.0" />
-          </font>
-        </Label>
 
         <Button fx:id="btnStart" text="Старт (B)" onAction="#clickStart" layoutX="-190" layoutY="40" prefHeight="50" prefWidth="90">
           <font>
@@ -39,6 +34,7 @@
             <Font name="Arial Bold" size="15.0" />
           </font>
         </Button>
+
         <CheckBox fx:id="btnShowInfo" text="Показывать информацию" layoutX="-190" layoutY="100" prefHeight="30" prefWidth="200">
           <font>
             <Font name="Arial" size="13.0" />

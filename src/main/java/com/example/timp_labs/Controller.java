@@ -6,7 +6,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-
 public class Controller {
     @FXML
     private Label labelTextTIMER;
@@ -14,16 +13,11 @@ public class Controller {
     private Label labelTimer;
     @FXML
     private Pane modalPane;
-    @FXML
-    private Label statistic;
     public Label getLabelTextTIMER() {
         return labelTextTIMER;
     }
     public Label getLabelTimer() {
         return labelTimer;
-    }
-    public Label getStatistic() {
-        return statistic;
     }
     public Pane getPane() {
         return modalPane;
@@ -72,9 +66,8 @@ public class Controller {
             btnStart.setDisable(true);
             btnStop.setDisable(false);
             Statistics st = Statistics.getInstance();
-            if (!st.startFlag) {
-                st.startAction();
-            }
+            st.startAction();
+
         }
         catch (NumberFormatException ex) {
             fieldN1.setText("1");
@@ -98,9 +91,8 @@ public class Controller {
             boxP1.setDisable(false);
             boxP2.setDisable(false);
         }
-        if (st.startFlag) {
-            st.stopAction();
-        }
+        st.stopAction();
+
     }
     @FXML
     private void clickTimeSwitch() {
@@ -131,23 +123,14 @@ public class Controller {
                 }
                 break;
             case KeyCode.B:
-                clickStart();
-//                if (!st.startFlag) {
-//                    st.startAction();
-//                    btnStart.setDisable(true);
-//                    btnStop.setDisable(false);
-//                }
+                if (!st.startFlag) {
+                    clickStart();
+                }
                 break;
             case KeyCode.E:
-                clickStop();
-//                if (!btnShowInfo.isSelected()) {
-//                    st.restartFlag = true;
-//                }
-//                if (st.startFlag) {
-//                    btnStart.setDisable(false);
-//                    btnStop.setDisable(true);
-//                    st.stopAction();
-//                }
+                if (st.startFlag) {
+                    clickStop();
+                }
                 break;
         }
     }
