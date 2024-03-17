@@ -25,6 +25,10 @@ public class Statistics {
     public static Statistics getInstance() {
         return instance;
     }
+    public long getTime()
+    {
+        return minutes * 60 + seconds;
+    }
     public void showTimer() {
         timeFlag = !timeFlag;
         if (timeFlag) {
@@ -75,7 +79,7 @@ public class Statistics {
                 Platform.runLater(() -> {
                     updateTimer();
                     if (seconds >= 1) {
-                        Habitat.getInstance().update((System.currentTimeMillis() - startTime)/1000);
+                        Habitat.getInstance().update();
                     }
                 });
             }

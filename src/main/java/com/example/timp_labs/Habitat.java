@@ -28,9 +28,10 @@ public class Habitat {
     public ArrayList<Person> getArray() {
         return array;
     }
-    public void update(long time) {
+    public void update() {
         Random rand = new Random();
         Statistics st = Statistics.getInstance();
+        long time = st.getTime();
         float p = rand.nextFloat();
         try {
             if ((time % n1 == 0) && (p <= p1)) {
