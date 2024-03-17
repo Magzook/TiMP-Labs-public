@@ -61,6 +61,24 @@
 
         <Rectangle height="600" width="8" fill="black"/>
 
+        <Label layoutX="-190" layoutY="190" text="Периоды рождения (сек)" >
+          <font>
+            <Font name="System Bold" size="14.0" />
+          </font>
+        </Label>
+        <Label layoutX="-190" layoutY="215" text="Физические лица" >
+          <font>
+            <Font name="System" size="14.0" />
+          </font>
+        </Label>
+        <Label layoutX="-190" layoutY="235" text="Юридические лица" >
+          <font>
+            <Font name="System" size="14.0" />
+          </font>
+        </Label>
+        <TextField fx:id="fieldN1" layoutX="-50" layoutY="210" prefWidth="30" />
+        <TextField fx:id="fieldN2" layoutX="-50" layoutY="235" prefWidth="30" />
+
       </children>
     </Pane>
   </children>

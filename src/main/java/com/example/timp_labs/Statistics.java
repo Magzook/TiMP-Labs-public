@@ -114,6 +114,8 @@ public class Statistics {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 restartFlag = true;
+                mainController.fieldN1.setDisable(false);
+                mainController.fieldN2.setDisable(false);
             }
             else {
                 mainController.btnStart.setDisable(true);

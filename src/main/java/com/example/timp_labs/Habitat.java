@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Habitat {
     private int width = 1300, height = 600;
-    private int n1 = 1, n2 = 2;
+    public int n1 = 1, n2 = 2;
     private float p1 = 1, p2 = 1;
     private ArrayList<Person> array = new ArrayList<Person>();
     private static Habitat instance;

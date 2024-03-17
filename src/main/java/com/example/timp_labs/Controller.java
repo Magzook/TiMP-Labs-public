@@ -1,13 +1,11 @@
 package com.example.timp_labs;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
 import javafx.event.ActionEvent;
 
 
@@ -34,43 +32,59 @@ public class Controller {
     }
 
     @FXML
-    public Button btnStart;
+    public Button btnStart, btnStop;
     @FXML
-    public Button btnStop;
+    public RadioButton btnShowInfo, btnShowTime, btnHideTime;
     @FXML
-    public RadioButton btnShowInfo;
-    @FXML
-    public RadioButton btnShowTime;
-    @FXML
-    public RadioButton btnHideTime;
+    public TextField fieldN1, fieldN2;
     @FXML
     void initialize() {
         btnStop.setDisable(true); // Кнопка "Стоп" изначально заблокирована
         btnShowTime.setSelected(true); // Переключатель "Показать время" изначально выбран
     }
     @FXML
-    private void clickStart(ActionEvent event) {
-        Statistics st = Statistics.getInstance();
-        btnStart.setDisable(true);
-        btnStop.setDisable(false);
-        if (!st.startFlag) {
-            st.startAction();
+    private void clickStart() {
+        try {
+            Habitat hab = Habitat.getInstance();
+            hab.n1 = Integer.parseInt(fieldN1.getText());
+            hab.n2 = Integer.parseInt(fieldN2.getText());
+            if (hab.n1 < 1 || hab.n2 < 1) {
+                throw new NumberFormatException("Слишком маленькое число");
+            }
+            // Если данные некорректны, работает блок catch, иначе идём дальше
+            fieldN1.setDisable(true);
+            fieldN2.setDisable(true);
+            Statistics st = Statistics.getInstance();
+            btnStart.setDisable(true);
+            btnStop.setDisable(false);
+            if (!st.startFlag) {
+                st.startAction();
+            }
+        }
+        catch (NumberFormatException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Ошибка!");
+            alert.setHeaderText("Некорректный период рождения");
+            alert.setContentText("Введите целое положительное число, не превышающее 2^31-1");
+            alert.showAndWait();
         }
     }
     @FXML
-    private void clickStop(ActionEvent event) {
+    private void clickStop() {
         Statistics st = Statistics.getInstance();
         btnStart.setDisable(false);
         btnStop.setDisable(true);
         if (!btnShowInfo.isSelected()) {
             st.restartFlag = true;
+            fieldN1.setDisable(false);
+            fieldN2.setDisable(false);
         }
         if (st.startFlag) {
             st.stopAction();
         }
     }
     @FXML
-    private void clickTimeSwitch(ActionEvent event) {
+    private void clickTimeSwitch() {
         Statistics st = Statistics.getInstance();
         if (btnShowTime.isSelected()) {
             st.timeFlag = false;
@@ -98,21 +112,23 @@ public class Controller {
                 }
                 break;
             case KeyCode.B:
-                if (!st.startFlag) {
-                    st.startAction();
-                    btnStart.setDisable(true);
-                    btnStop.setDisable(false);
-                }
+                clickStart();
+//                if (!st.startFlag) {
+//                    st.startAction();
+//                    btnStart.setDisable(true);
+//                    btnStop.setDisable(false);
+//                }
                 break;
             case KeyCode.E:
-                if (!btnShowInfo.isSelected()) {
-                    st.restartFlag = true;
-                }
-                if (st.startFlag) {
-                    btnStart.setDisable(false);
-                    btnStop.setDisable(true);
-                    st.stopAction();
-                }
+                clickStop();
+//                if (!btnShowInfo.isSelected()) {
+//                    st.restartFlag = true;
+//                }
+//                if (st.startFlag) {
+//                    btnStart.setDisable(false);
+//                    btnStop.setDisable(true);
+//                    st.stopAction();
+//                }
                 break;
         }
     }
