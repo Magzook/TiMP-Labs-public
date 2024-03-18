@@ -117,6 +117,8 @@ public class Statistics {
             else {
                 mainController.btnStart.setDisable(true);
                 mainController.btnStop.setDisable(false);
+                mainController.menuStart.setDisable(true);
+                mainController.menuStop.setDisable(false);
                 startAction();
             }
         }

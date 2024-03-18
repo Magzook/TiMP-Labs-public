@@ -1,5 +1,7 @@
 package com.example.timp_labs;
 
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -34,9 +36,17 @@ public class Controller {
     @FXML
     public ComboBox<String> boxP1, boxP2;
     @FXML
+    public MenuItem menuStart, menuStop, menuExit;
+    @FXML
+    public CheckMenuItem menuShowInfo;
+    @FXML
+    public RadioMenuItem menuShowTime, menuHideTime;
+    @FXML
     void initialize() {
         btnStop.setDisable(true); // Кнопка "Стоп" изначально заблокирована
+        menuStop.setDisable(true);
         btnShowTime.setSelected(true); // Переключатель "Показать время" изначально выбран
+        menuShowTime.setSelected(true);
         fieldN1.setText("1"); // Значения для текстовых полей по умолчанию
         fieldN2.setText("2");
         // Дальше идёт заполнение комбобоксов
@@ -65,6 +75,8 @@ public class Controller {
             boxP2.setDisable(true);
             btnStart.setDisable(true);
             btnStop.setDisable(false);
+            menuStart.setDisable(true);
+            menuStop.setDisable(false);
             Statistics st = Statistics.getInstance();
             st.startAction();
 
@@ -84,6 +96,8 @@ public class Controller {
         Statistics st = Statistics.getInstance();
         btnStart.setDisable(false);
         btnStop.setDisable(true);
+        menuStart.setDisable(false);
+        menuStop.setDisable(true);
         if (!btnShowInfo.isSelected()) {
             st.restartFlag = true;
             fieldN1.setDisable(false);
@@ -92,19 +106,50 @@ public class Controller {
             boxP2.setDisable(false);
         }
         st.stopAction();
-
+    }
+    @FXML
+    private void clickInfo() {
+        menuShowInfo.setSelected(!menuShowInfo.isSelected());
+    }
+    @FXML
+    private void menuClickInfo() {
+        btnShowInfo.setSelected(!btnShowInfo.isSelected());
     }
     @FXML
     private void clickTimeSwitch() {
         Statistics st = Statistics.getInstance();
         if (btnShowTime.isSelected()) {
             st.timeFlag = false;
+            menuShowTime.setSelected(true);
+            menuHideTime.setSelected(false);
         }
         else if (btnHideTime.isSelected())
         {
             st.timeFlag = true;
+            menuShowTime.setSelected(false);
+            menuHideTime.setSelected(true);
         }
         st.showTimer();
+    }
+    @FXML
+    private void menuClickTimeSwitch() {
+        Statistics st = Statistics.getInstance();
+        if (menuShowTime.isSelected()) {
+            st.timeFlag = false;
+            btnShowTime.setSelected(true);
+            btnHideTime.setSelected(false);
+        }
+        else if (menuHideTime.isSelected())
+        {
+            st.timeFlag = true;
+            btnShowTime.setSelected(false);
+            btnHideTime.setSelected(true);
+        }
+        st.showTimer();
+    }
+    @FXML
+    public void menuClickExit() {
+        Platform.exit();
     }
     @FXML
     void keyPressed(KeyEvent keyEvent) {
@@ -115,11 +160,15 @@ public class Controller {
                 st.showTimer();
                 if (btnShowTime.isSelected()) {
                     btnShowTime.setSelected(false);
+                    menuShowTime.setSelected(false);
                     btnHideTime.setSelected(true);
+                    menuHideTime.setSelected(true);
                 }
                 else if (btnHideTime.isSelected()) {
                     btnShowTime.setSelected(true);
+                    menuShowTime.setSelected(true);
                     btnHideTime.setSelected(false);
+                    menuHideTime.setSelected(false);
                 }
                 break;
             case KeyCode.B:

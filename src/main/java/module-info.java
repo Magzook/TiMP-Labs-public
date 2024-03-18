@@ -1,6 +1,7 @@
 module com.example.timp_labs {
     requires javafx.controls;
     requires javafx.fxml;
+    requires jdk.jfr;
 
 
     opens com.example.timp_labs to javafx.fxml;
