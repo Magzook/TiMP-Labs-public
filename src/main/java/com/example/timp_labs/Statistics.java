@@ -15,14 +15,15 @@ public class Statistics {
     private int seconds = -1, minutes = 0;
     public Controller mainController;
     private static Statistics instance;
-    public Statistics(Controller mainController) {
-        this.mainController = mainController;
-    }
-    public static void setInstance(Statistics instance) {
-        Statistics.instance = instance;
-    }
+    private Statistics() {}
     public static Statistics getInstance() {
+        if (instance == null) {
+            instance = new Statistics();
+        }
         return instance;
+    }
+    public void setMainController(Controller mainController) {
+        this.mainController = mainController;
     }
     public long getTime() {
         return minutes * 60 + seconds;

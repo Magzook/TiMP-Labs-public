@@ -11,22 +11,25 @@ public class Habitat {
     private int width = 1300, height = 600;
     public int n1, n2;
     public float p1, p2;
-    private ArrayList<Person> array = new ArrayList<>();
+    private ArrayList<Person> array;
     private static Habitat instance;
-    public static void setInstance(Habitat instance) {
-        Habitat.instance = instance;
+    private Habitat() {
+        array = new ArrayList<>();
     }
     public static Habitat getInstance() {
+        if (instance == null) {
+            instance = new Habitat();
+        }
         return instance;
+    }
+    public ArrayList<Person> getArray() {
+        return array;
     }
     public int getWidth() {
         return width;
     }
     public int getHeight() {
         return height;
-    }
-    public ArrayList<Person> getArray() {
-        return array;
     }
     public void update() {
         Random rand = new Random();

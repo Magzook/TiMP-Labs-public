@@ -18,10 +18,8 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Main.fxml"));
         Parent root = fxmlLoader.load();
-        hab = new Habitat();
-        Habitat.setInstance(hab);
-        stats = new Statistics(fxmlLoader.getController());
-        Statistics.setInstance(stats);
+
+        Statistics.getInstance().setMainController(fxmlLoader.getController());
 
         Scene scene = new Scene(root, Habitat.getInstance().getWidth(), Habitat.getInstance().getHeight());
         scene.getRoot().requestFocus();
