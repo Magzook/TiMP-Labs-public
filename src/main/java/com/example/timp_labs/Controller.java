@@ -149,7 +149,7 @@ public class Controller {
     }
     @FXML
     public void menuClickExit() {
-        Platform.exit();
+        System.exit(0);
     }
     @FXML
     void keyPressed(KeyEvent keyEvent) {
