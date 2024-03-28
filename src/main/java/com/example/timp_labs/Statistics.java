@@ -53,10 +53,12 @@ public class Statistics {
         Habitat hab = Habitat.getInstance();
 
         if (restartFlag || firstActionFlag) {
-            hab.getVector().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView()));
-            hab.getVector().clear();
-            PhysicalPerson.count = 0;
-            JuridicalPerson.count = 0;
+            hab.getObjCollection().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView())); // Очистка изображений
+            hab.getObjCollection().clear();  // Очистка всех коллекций
+            hab.getBornCollection().clear();
+            hab.getIdCollection().clear();
+            PhysicalPerson.spawnedCount = 0;
+            JuridicalPerson.spawnedCount = 0;
             seconds = -1;
             minutes = 0;
             timer = new Timer();
@@ -92,7 +94,7 @@ public class Statistics {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Статистика");
             alert.setHeaderText("OK - прекратить симуляцию\nCancel - продолжить симуляцию");
-            String statistic = "Физические лица: " + PhysicalPerson.count+ "\nЮридические лица: " + JuridicalPerson.count;
+            String statistic = "Физические лица: " + PhysicalPerson.spawnedCount+ "\nЮридические лица: " + JuridicalPerson.spawnedCount;
             statistic += "\nВремя: ";
             if (minutes >= 1)
             {

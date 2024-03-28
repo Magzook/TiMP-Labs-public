@@ -8,7 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class JuridicalPerson extends Person {
-    public static int count = 0;
+    public static int spawnedCount = 0;
     static Image image;
     private static int lifeTime;
 
