@@ -1,7 +1,5 @@
 package com.example.timp_labs;
 
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -59,14 +57,17 @@ public class Controller {
     }
     @FXML
     private void clickStart() {
+        Habitat hab = Habitat.getInstance();
+        int n1 = 1, n2 = 1;
         try {
-            Habitat hab = Habitat.getInstance();
-            hab.n1 = Integer.parseInt(fieldN1.getText());
-            hab.n2 = Integer.parseInt(fieldN2.getText());
-            if (hab.n1 < 1 || hab.n2 < 1) {
+            n1 = Integer.parseInt(fieldN1.getText());
+            n2 = Integer.parseInt(fieldN2.getText());
+            if (n1 < 1 || n2 < 1) {
                 throw new NumberFormatException("Слишком маленькое число");
             }
             // Если данные некорректны, работает блок catch, иначе идём дальше
+            hab.n1 = n1;
+            hab.n2 = n2;
             hab.p1 = Float.parseFloat(boxP1.getValue().replace("%", "")) / 100;
             hab.p2 = Float.parseFloat(boxP2.getValue().replace("%", "")) / 100;
             fieldN1.setDisable(true);
@@ -77,17 +78,15 @@ public class Controller {
             btnStop.setDisable(false);
             menuStart.setDisable(true);
             menuStop.setDisable(false);
-            Statistics st = Statistics.getInstance();
-            st.startAction();
-
+            Statistics.getInstance().startAction();
         }
         catch (NumberFormatException ex) {
-            fieldN1.setText("1");
-            fieldN2.setText("2");
+            if (!fieldN1.getText().matches("\\d+") || n1 < 1) fieldN1.setText("1");
+            if (!fieldN2.getText().matches("\\d+") || n2 < 1) fieldN2.setText("2");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
             alert.setHeaderText("Некорректный период рождения");
-            alert.setContentText("Требуется целое положительное число, не превышающее 2^31-1. Выставлены значения по умолчанию.");
+            alert.setContentText("Требуется целое положительное число, не превышающее 2^31-1");
             alert.showAndWait();
         }
     }

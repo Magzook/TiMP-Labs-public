@@ -81,7 +81,7 @@ public class Statistics {
                     }
                 });
             }
-        }, 4, 100);
+        }, 4, 1000);
     }
     public void stopAction() {
         startFlag = false;
