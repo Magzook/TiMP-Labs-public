@@ -89,6 +89,24 @@
         <ComboBox fx:id="boxP1" layoutX="-75" layoutY="280" />
         <ComboBox fx:id="boxP2" layoutX="-75" layoutY="305" />
 
+        <Label layoutX="-190" layoutY="330" text="Время жизни (сек)" >
+          <font>
+            <Font name="System Bold" size="14.0" />
+          </font>
+        </Label>
+        <Label layoutX="-195" layoutY="355" text="Физические лица" >
+          <font>
+            <Font name="System" size="13.0" />
+          </font>
+        </Label>
+        <Label layoutX="-195" layoutY="375" text="Юридические лица" >
+          <font>
+            <Font name="System" size="13.0" />
+          </font>
+        </Label>
+        <TextField fx:id="fieldLifeTimePhy" layoutX="-50" layoutY="350" prefWidth="35" />
+        <TextField fx:id="fieldLifeTimeJur" layoutX="-50" layoutY="375" prefWidth="35" />
+
         <MenuBar layoutX="-200">
           <menus>
             <Menu text="Меню" >

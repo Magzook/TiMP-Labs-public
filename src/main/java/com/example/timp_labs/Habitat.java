@@ -11,10 +11,14 @@ public class Habitat {
     private int width = 1300, height = 600;
     public int n1, n2;
     public float p1, p2;
-    private ArrayList<Person> array;
+
+    private Vector<Person> vector; // Коллекция для объектов
+    private HashMap<Person, Integer> hashMap; // Коллекция для времён рождения
+
     private static Habitat instance;
     private Habitat() {
-        array = new ArrayList<>();
+        vector = new Vector<>();
+        hashMap = new HashMap<>();
     }
     public static Habitat getInstance() {
         if (instance == null) {
@@ -22,9 +26,10 @@ public class Habitat {
         }
         return instance;
     }
-    public ArrayList<Person> getArray() {
-        return array;
+    public Vector<Person> getVector() {
+        return vector;
     }
+    public HashMap<Person, Integer> getHashMap() {return hashMap;}
     public int getWidth() {
         return width;
     }
@@ -34,21 +39,40 @@ public class Habitat {
     public void update() {
         Random rand = new Random();
         Statistics st = Statistics.getInstance();
-        long time = st.getTime();
+        int time = st.getTime();
         float p = rand.nextFloat();
         try {
+            // Удалить объекты, время жизни которых истекло (проход по коллекции типа Vector)
+            for (int i = 0; i < vector.size(); i++) {
+                Person obj = vector.get(i);
+                int lifeTime = 0;
+                if (obj instanceof PhysicalPerson) lifeTime = PhysicalPerson.getLifeTime();
+                else if (obj instanceof JuridicalPerson) lifeTime = JuridicalPerson.getLifeTime();
+
+                if (hashMap.get(obj) + lifeTime == st.getTime()) {
+                    st.mainController.getPane().getChildren().remove(obj.getImageView());
+                    vector.remove(obj);
+                    i--;
+                    hashMap.remove(obj);
+                }
+            }
+
             // [0; 1000] при width = 1300
             // [0; 520] при height = 600
             if ((time % n1 == 0) && (p <= p1)) {
                 PhysicalPerson phy = new PhysicalPerson(rand.nextInt(0, width - 300), rand.nextInt(0, height - 80));
+
                 st.mainController.getPane().getChildren().add(phy.getImageView());
-                array.add(phy);
+                vector.add(phy);
+                hashMap.put(phy, st.getTime());
                 PhysicalPerson.count++;
             }
             if ((time % n2 == 0) && (p <= p2)) {
                 JuridicalPerson jur = new JuridicalPerson(rand.nextInt(0, width - 300), rand.nextInt(0, height - 80));
+
                 st.mainController.getPane().getChildren().add(jur.getImageView());
-                array.add(jur);
+                vector.add(jur);
+                hashMap.put(jur, st.getTime());
                 JuridicalPerson.count++;
             }
         }

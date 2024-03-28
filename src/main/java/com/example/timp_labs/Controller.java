@@ -1,5 +1,7 @@
 package com.example.timp_labs;
 
+import com.example.timp_labs.model.JuridicalPerson;
+import com.example.timp_labs.model.PhysicalPerson;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -30,7 +32,7 @@ public class Controller {
     @FXML
     public RadioButton btnShowTime, btnHideTime;
     @FXML
-    public TextField fieldN1, fieldN2;
+    public TextField fieldN1, fieldN2, fieldLifeTimePhy, fieldLifeTimeJur;
     @FXML
     public ComboBox<String> boxP1, boxP2;
     @FXML
@@ -47,6 +49,8 @@ public class Controller {
         menuShowTime.setSelected(true);
         fieldN1.setText("1"); // Значения для текстовых полей по умолчанию
         fieldN2.setText("2");
+        fieldLifeTimePhy.setText("8");
+        fieldLifeTimeJur.setText("30");
         // Дальше идёт заполнение комбобоксов
         for (int value = 0; value <= 100; value += 10) {
             boxP1.getItems().add(value + "%");
@@ -58,20 +62,26 @@ public class Controller {
     @FXML
     private void clickStart() {
         Habitat hab = Habitat.getInstance();
-        int n1 = 1, n2 = 1;
+        int n1 = 1, n2 = 1, lifeTimePhy = 1, lifeTimeJur = 1;
         try {
             n1 = Integer.parseInt(fieldN1.getText());
             n2 = Integer.parseInt(fieldN2.getText());
-            if (n1 < 1 || n2 < 1) {
+            lifeTimePhy = Integer.parseInt(fieldLifeTimePhy.getText());
+            lifeTimeJur = Integer.parseInt(fieldLifeTimeJur.getText());
+            if (n1 < 1 || n2 < 1 || lifeTimePhy < 1 || lifeTimeJur < 1) {
                 throw new NumberFormatException("Слишком маленькое число");
             }
             // Если данные некорректны, работает блок catch, иначе идём дальше
-            hab.n1 = n1;
+            hab.n1 = n1; // Установление периодов рождения
             hab.n2 = n2;
-            hab.p1 = Float.parseFloat(boxP1.getValue().replace("%", "")) / 100;
+            PhysicalPerson.setLifeTime(lifeTimePhy); // Установление времени жизнм
+            JuridicalPerson.setLifeTime(lifeTimeJur);
+            hab.p1 = Float.parseFloat(boxP1.getValue().replace("%", "")) / 100; // Установление вероятностей рождения
             hab.p2 = Float.parseFloat(boxP2.getValue().replace("%", "")) / 100;
             fieldN1.setDisable(true);
             fieldN2.setDisable(true);
+            fieldLifeTimePhy.setDisable(true);
+            fieldLifeTimeJur.setDisable(true);
             boxP1.setDisable(true);
             boxP2.setDisable(true);
             btnStart.setDisable(true);
@@ -83,9 +93,12 @@ public class Controller {
         catch (NumberFormatException ex) {
             if (!fieldN1.getText().matches("\\d+") || n1 < 1) fieldN1.setText("1");
             if (!fieldN2.getText().matches("\\d+") || n2 < 1) fieldN2.setText("2");
+            if (!fieldLifeTimePhy.getText().matches("\\d+") || lifeTimePhy < 1) fieldLifeTimePhy.setText("8");
+            if (!fieldLifeTimeJur.getText().matches("\\d+") || lifeTimeJur < 1) fieldLifeTimeJur.setText("30");
+
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Ошибка");
-            alert.setHeaderText("Некорректный период рождения");
+            alert.setHeaderText("Некорректное значение текстового поля");
             alert.setContentText("Требуется целое положительное число, не превышающее 2^31-1");
             alert.showAndWait();
         }
@@ -101,6 +114,8 @@ public class Controller {
             st.restartFlag = true;
             fieldN1.setDisable(false);
             fieldN2.setDisable(false);
+            fieldLifeTimePhy.setDisable(false);
+            fieldLifeTimeJur.setDisable(false);
             boxP1.setDisable(false);
             boxP2.setDisable(false);
         }

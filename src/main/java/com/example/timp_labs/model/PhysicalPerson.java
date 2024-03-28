@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 public class PhysicalPerson extends Person {
     public static int count = 0;
     static Image image;
+    private static int lifeTime;
 
     static {
         try {
@@ -29,4 +30,10 @@ public class PhysicalPerson extends Person {
         imageIV.setPreserveRatio(true);
     }
     public ImageView getImageView() {return imageIV;}
+    public static void setLifeTime(int lifeTime) {
+        PhysicalPerson.lifeTime = lifeTime;
+    }
+    public static int getLifeTime() {
+        return lifeTime;
+    }
 }

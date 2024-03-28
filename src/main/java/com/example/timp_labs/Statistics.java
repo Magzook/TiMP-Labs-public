@@ -25,7 +25,7 @@ public class Statistics {
     public void setMainController(Controller mainController) {
         this.mainController = mainController;
     }
-    public long getTime() {
+    public int getTime() {
         return minutes * 60 + seconds;
     }
     public void showTimer() {
@@ -53,8 +53,8 @@ public class Statistics {
         Habitat hab = Habitat.getInstance();
 
         if (restartFlag || firstActionFlag) {
-            hab.getArray().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView()));
-            hab.getArray().clear();
+            hab.getVector().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView()));
+            hab.getVector().clear();
             PhysicalPerson.count = 0;
             JuridicalPerson.count = 0;
             seconds = -1;
@@ -112,6 +112,8 @@ public class Statistics {
                 restartFlag = true;
                 mainController.fieldN1.setDisable(false);
                 mainController.fieldN2.setDisable(false);
+                mainController.fieldLifeTimePhy.setDisable(false);
+                mainController.fieldLifeTimeJur.setDisable(false);
                 mainController.boxP1.setDisable(false);
                 mainController.boxP2.setDisable(false);
             }
