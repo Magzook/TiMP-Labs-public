@@ -83,7 +83,7 @@ public class Statistics {
                     }
                 });
             }
-        }, 4, 1000);
+        }, 4, 100);
     }
     public void stopAction() {
         startFlag = false;
@@ -94,7 +94,7 @@ public class Statistics {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Статистика");
             alert.setHeaderText("OK - прекратить симуляцию\nCancel - продолжить симуляцию");
-            String statistic = "Физические лица: " + PhysicalPerson.spawnedCount+ "\nЮридические лица: " + JuridicalPerson.spawnedCount;
+            String statistic = "Создано:\nФизические лица: " + PhysicalPerson.spawnedCount+ "\nЮридические лица: " + JuridicalPerson.spawnedCount;
             statistic += "\nВремя: ";
             if (minutes >= 1)
             {

@@ -2,12 +2,14 @@ package com.example.timp_labs;
 
 import com.example.timp_labs.model.JuridicalPerson;
 import com.example.timp_labs.model.PhysicalPerson;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+
+import java.util.Map;
+import java.util.Timer;
 
 public class Controller {
     @FXML
@@ -168,7 +170,32 @@ public class Controller {
     }
     @FXML
     public void clickCurrentObjects() {
+        Statistics st = Statistics.getInstance();
+        Habitat hab = Habitat.getInstance();
+        if (!st.firstActionFlag) {
+            st.timer.cancel();
+            st.timer = new Timer();
+        }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Информация");
+        alert.setHeaderText("Живые объекты");
+        String statistic = "";
 
+        for (Map.Entry<Integer, Integer> entry : hab.getBornCollection().entrySet()) {
+            int id = entry.getKey();
+            int bornTime = entry.getValue();
+            statistic += "ID = " + id + "\tВремя рождения = ";
+            if (bornTime < 60) statistic += bornTime + " сек\n";
+            else statistic += (bornTime / 60) + " мин " + (bornTime % 60) + " сек\n";
+        }
+
+        TextArea textArea = new TextArea(statistic);
+        textArea.setPrefColumnCount(25);
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        alert.getDialogPane().setContent(textArea);
+        alert.showAndWait();
+        if (st.startFlag) st.startAction();
     }
     @FXML
     void keyPressed(KeyEvent keyEvent) {

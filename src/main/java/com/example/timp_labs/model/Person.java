@@ -13,7 +13,7 @@ public abstract class Person implements IBehaviour {
         Habitat hab = Habitat.getInstance();
         Random rand = new Random();
         do {
-            id = rand.nextInt(); // Генерация случайного id
+            id = rand.nextInt(100000, 1000000); // Генерация случайного id
         } while (hab.getIdCollection().contains(id)); // Проверка на уникальность
     }
     public abstract ImageView getImageView();
