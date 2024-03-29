@@ -13,7 +13,7 @@ public class Habitat {
     public float p1, p2;
 
     private Vector<Person> objCollection; // Коллекция для объектов
-    private HashMap<Person, Integer> bornCollection; // Коллекция для пар <Объект, Время рождения>
+    private HashMap<Integer, Integer> bornCollection; // Коллекция для пар <ID, Время рождения> // ПЕРЕДЕЛАТЬ!!!
     private TreeSet<Integer> idCollection; // Коллекция для уникальных идентификаторов
 
     private static Habitat instance;
@@ -31,7 +31,7 @@ public class Habitat {
     public Vector<Person> getObjCollection() {
         return objCollection;
     }
-    public HashMap<Person, Integer> getBornCollection() {return bornCollection;}
+    public HashMap<Integer, Integer> getBornCollection() {return bornCollection;}
     public TreeSet<Integer> getIdCollection() {return idCollection;}
     public int getWidth() {
         return width;
@@ -48,16 +48,17 @@ public class Habitat {
             // Удалить объекты, время жизни которых истекло (проход по коллекции объектов)
             for (int i = 0; i < objCollection.size(); i++) {
                 Person obj = objCollection.get(i);
+                int id = obj.getId();
                 int lifeTime = 0;
                 if (obj instanceof PhysicalPerson) lifeTime = PhysicalPerson.getLifeTime();
                 else if (obj instanceof JuridicalPerson) lifeTime = JuridicalPerson.getLifeTime();
 
-                if (bornCollection.get(obj) + lifeTime == st.getTime()) {
+                if (bornCollection.get(id) + lifeTime == st.getTime()) {
                     st.mainController.getPane().getChildren().remove(obj.getImageView()); // Удаление изображения
-                    objCollection.remove(obj); // Удаление из основной коллекции
+                    objCollection.remove(obj); // Удаление объекта из основной коллекции
                     i--;
-                    bornCollection.remove(obj); // Удаление пары <Объект, Время рождения>
-                    idCollection.remove(obj.getId()); // Удаление идентификатора
+                    bornCollection.remove(id); // Удаление пары <ID, Время рождения>
+                    idCollection.remove(id); // Удаление идентификатора
                 }
             }
 
@@ -69,7 +70,8 @@ public class Habitat {
 
                 st.mainController.getPane().getChildren().add(phy.getImageView());
                 objCollection.add(phy);
-                bornCollection.put(phy, st.getTime());
+                bornCollection.put(phy.getId(), st.getTime());
+                idCollection.add(phy.getId());
                 PhysicalPerson.spawnedCount++;
             }
             if ((time % n2 == 0) && (p <= p2)) {
@@ -77,7 +79,8 @@ public class Habitat {
 
                 st.mainController.getPane().getChildren().add(jur.getImageView());
                 objCollection.add(jur);
-                bornCollection.put(jur, st.getTime());
+                bornCollection.put(jur.getId(), st.getTime());
+                idCollection.add(jur.getId());
                 JuridicalPerson.spawnedCount++;
             }
         }

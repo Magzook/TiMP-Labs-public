@@ -2,6 +2,7 @@ package com.example.timp_labs;
 
 import com.example.timp_labs.model.JuridicalPerson;
 import com.example.timp_labs.model.PhysicalPerson;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -166,6 +167,10 @@ public class Controller {
         System.exit(0);
     }
     @FXML
+    public void clickCurrentObjects() {
+
+    }
+    @FXML
     void keyPressed(KeyEvent keyEvent) {
         keyEvent.consume();
         Statistics st = Statistics.getInstance();
@@ -197,4 +202,6 @@ public class Controller {
                 break;
         }
     }
+
+
 }

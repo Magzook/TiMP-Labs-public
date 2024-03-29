@@ -15,7 +15,6 @@ public abstract class Person implements IBehaviour {
         do {
             id = rand.nextInt(); // Генерация случайного id
         } while (hab.getIdCollection().contains(id)); // Проверка на уникальность
-        hab.getIdCollection().add(id); // Добавление id в коллекцию
     }
     public abstract ImageView getImageView();
     public int getId() {

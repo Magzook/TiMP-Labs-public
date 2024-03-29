@@ -107,6 +107,12 @@
         <TextField fx:id="fieldLifeTimePhy" layoutX="-50" layoutY="350" prefWidth="35" />
         <TextField fx:id="fieldLifeTimeJur" layoutX="-50" layoutY="375" prefWidth="35" />
 
+        <Button fx:id="btnCurrentObjects" text="Текущие объекты" onAction="#clickCurrentObjects" layoutX="-190" layoutY="400" prefHeight="50" prefWidth="180">
+          <font>
+            <Font name="Arial Bold" size="15.0" />
+          </font>
+        </Button>
+
         <MenuBar layoutX="-200">
           <menus>
             <Menu text="Меню" >
