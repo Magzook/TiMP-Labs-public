@@ -1,14 +1,13 @@
 package com.example.timp_labs;
 
+import com.example.timp_labs.model.AIJuridical;
+import com.example.timp_labs.model.AIPhysical;
+import com.example.timp_labs.model.BaseAI;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-
 import java.io.IOException;
 
 public class MainApplication extends Application {
@@ -27,6 +26,12 @@ public class MainApplication extends Application {
         stage.setTitle("Картотека налоговой инспекции");
         stage.setScene(scene);
         stage.setOnCloseRequest(t -> System.exit(0)); // Остановка приложения по нажатию крестика
+
+        AIPhysical threadPhy = new AIPhysical("Physical AI");
+        threadPhy.start();
+        AIJuridical threadJur = new AIJuridical("Juridical AI");
+        threadJur.start();
+
         stage.show();
     }
     public static void main(String[] args) {

@@ -20,7 +20,7 @@ public class JuridicalPerson extends Person {
         }
     }
 
-    public JuridicalPerson(int x, int y) throws FileNotFoundException {
+    public JuridicalPerson(double x, double y) throws FileNotFoundException {
         super();
         imageIV = new ImageView(image);
         imageIV.setX(x);

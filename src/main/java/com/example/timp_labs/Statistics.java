@@ -2,6 +2,7 @@ package com.example.timp_labs;
 
 import java.util.*;
 
+import com.example.timp_labs.model.BaseAI;
 import com.example.timp_labs.model.JuridicalPerson;
 import com.example.timp_labs.model.PhysicalPerson;
 import javafx.application.Platform;
@@ -69,21 +70,23 @@ public class Statistics {
         startFlag = true;
 
         timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                seconds++;
-                if (seconds == 60){
-                    minutes++;
-                    seconds = 0;
-                }
-                Platform.runLater(() -> {
-                    updateTimer();
-                    if (seconds >= 1 || minutes >= 1) {
-                        Habitat.getInstance().update();
-                    }
-                });
-            }
-        }, 4, 100);
+                           @Override
+                           public void run() {
+                               seconds++;
+                               if (seconds == 60){
+                                   minutes++;
+                                   seconds = 0;
+                               }
+                               Platform.runLater(() -> {
+                                   updateTimer();
+                                   if (seconds >= 1 || minutes >= 1) {
+                                       Habitat.getInstance().update();
+                                   }
+                               });
+                           }
+                       },
+                4,
+                1000);
     }
     public void stopAction() {
         startFlag = false;

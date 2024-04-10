@@ -51,7 +51,7 @@
           </font>
         </RadioButton>
 
-        <Rectangle height="600" width="8" fill="black"/>
+        <Rectangle height="600" width="1" fill="black"/>
 
         <Label layoutX="-190" layoutY="190" text="Периоды рождения (сек)" >
           <font>
@@ -133,6 +133,8 @@
             </Menu>
           </menus>
         </MenuBar>
+        <Rectangle height="600" width="1" layoutX="550" fill="black"/>
+        <Rectangle height="1" width="1100" layoutY="300" fill="black"/>
 
       </children>
     </Pane>

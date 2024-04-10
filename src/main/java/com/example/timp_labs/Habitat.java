@@ -13,7 +13,7 @@ public class Habitat {
     public float p1, p2;
 
     private Vector<Person> objCollection; // Коллекция для объектов
-    private HashMap<Integer, Integer> bornCollection; // Коллекция для пар <ID, Время рождения> // ПЕРЕДЕЛАТЬ!!!
+    private HashMap<Integer, Integer> bornCollection; // Коллекция для пар <ID, Время рождения>
     private TreeSet<Integer> idCollection; // Коллекция для уникальных идентификаторов
 
     private static Habitat instance;
@@ -46,27 +46,30 @@ public class Habitat {
         float p = rand.nextFloat();
         try {
             // Удалить объекты, время жизни которых истекло (проход по коллекции объектов)
-            for (int i = 0; i < objCollection.size(); i++) {
-                Person obj = objCollection.get(i);
-                int id = obj.getId();
-                int lifeTime = 0;
-                if (obj instanceof PhysicalPerson) lifeTime = PhysicalPerson.getLifeTime();
-                else if (obj instanceof JuridicalPerson) lifeTime = JuridicalPerson.getLifeTime();
+            synchronized (objCollection) {
+                for (int i = 0; i < objCollection.size(); i++) {
+                    Person obj = objCollection.get(i);
+                    int id = obj.getId();
+                    int lifeTime = 0;
+                    if (obj instanceof PhysicalPerson) lifeTime = PhysicalPerson.getLifeTime();
+                    else if (obj instanceof JuridicalPerson) lifeTime = JuridicalPerson.getLifeTime();
 
-                if (bornCollection.get(id) + lifeTime == st.getTime()) {
-                    st.mainController.getPane().getChildren().remove(obj.getImageView()); // Удаление изображения
-                    objCollection.remove(obj); // Удаление объекта из основной коллекции
-                    i--;
-                    bornCollection.remove(id); // Удаление пары <ID, Время рождения>
-                    idCollection.remove(id); // Удаление идентификатора
+                    if (bornCollection.get(id) + lifeTime == st.getTime()) {
+                        st.mainController.getPane().getChildren().remove(obj.getImageView()); // Удаление изображения
+                        objCollection.remove(obj); // Удаление объекта из основной коллекции
+                        i--;
+                        bornCollection.remove(id); // Удаление пары <ID, Время рождения>
+                        idCollection.remove(id); // Удаление идентификатора
+                    }
                 }
             }
 
-            // [0; 1000] при width = 1300
-            // [0; 520] при height = 600
+            // [0; 1020] при width = 1300, размере картинки 80 на 80 и modalPane.getWidth() == 900
+            // [0; 520] при height = 600, размере картинки 80 на 80 и modalPane.getHeight() == 750
             // Создание объектов
+
             if ((time % n1 == 0) && (p <= p1)) {
-                PhysicalPerson phy = new PhysicalPerson(rand.nextInt(0, width - 300), rand.nextInt(0, height - 80));
+                PhysicalPerson phy = new PhysicalPerson(rand.nextDouble(0, 1020), rand.nextDouble(0, 520));
 
                 st.mainController.getPane().getChildren().add(phy.getImageView());
                 objCollection.add(phy);
@@ -75,7 +78,7 @@ public class Habitat {
                 PhysicalPerson.spawnedCount++;
             }
             if ((time % n2 == 0) && (p <= p2)) {
-                JuridicalPerson jur = new JuridicalPerson(rand.nextInt(0, width - 300), rand.nextInt(0, height - 80));
+                JuridicalPerson jur = new JuridicalPerson(rand.nextDouble(0, 1020), rand.nextDouble(0, 520));
 
                 st.mainController.getPane().getChildren().add(jur.getImageView());
                 objCollection.add(jur);

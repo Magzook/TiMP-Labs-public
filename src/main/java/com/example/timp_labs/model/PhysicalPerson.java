@@ -20,14 +20,14 @@ public class PhysicalPerson extends Person {
         }
     }
 
-    public PhysicalPerson(int x, int y) throws FileNotFoundException {
+    public PhysicalPerson(double x, double y) throws FileNotFoundException {
         super();
         imageIV = new ImageView(image);
         imageIV.setX(x);
         imageIV.setY(y);
-        imageIV.setFitWidth(80);
-        imageIV.setFitHeight(80);
-        imageIV.setPreserveRatio(true);
+        imageIV.setFitWidth(80); // Делаем картинку квадратной
+        imageIV.setFitHeight(80); // Делаем картинку квадратной
+        imageIV.setPreserveRatio(false); // Исходное фото НЕ квадратное, поэтому начальное соотношение сторон не сохраняем
     }
     public ImageView getImageView() {return imageIV;}
     public static void setLifeTime(int lifeTime) {
