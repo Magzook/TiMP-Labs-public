@@ -71,7 +71,12 @@ public class Habitat {
             if ((time % n1 == 0) && (p <= p1)) {
                 PhysicalPerson phy = new PhysicalPerson(rand.nextDouble(0, 1020), rand.nextDouble(0, 520));
 
-                st.mainController.getPane().getChildren().add(phy.getImageView());
+                try {
+                    st.mainController.getPane().getChildren().add(phy.getImageView());
+                }
+                catch (NullPointerException e) {
+                    System.out.println("пиздец");
+                }
                 objCollection.add(phy);
                 bornCollection.put(phy.getId(), st.getTime());
                 idCollection.add(phy.getId());
@@ -80,7 +85,12 @@ public class Habitat {
             if ((time % n2 == 0) && (p <= p2)) {
                 JuridicalPerson jur = new JuridicalPerson(rand.nextDouble(0, 1020), rand.nextDouble(0, 520));
 
-                st.mainController.getPane().getChildren().add(jur.getImageView());
+                try {
+                    st.mainController.getPane().getChildren().add(jur.getImageView());
+                }
+                catch (NullPointerException e) {
+                    System.out.println("ну и говно");
+                }
                 objCollection.add(jur);
                 bornCollection.put(jur.getId(), st.getTime());
                 idCollection.add(jur.getId());

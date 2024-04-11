@@ -20,12 +20,12 @@
           </font>
         </Label>
 
-        <Button fx:id="btnStart" text="Старт (B)" onAction="#clickStart" layoutX="-190" layoutY="40" prefHeight="50" prefWidth="90">
+        <Button fx:id="btnStart" text="Старт (B)" onAction="#clickStart" layoutX="-190" layoutY="60" prefHeight="20" prefWidth="90">
           <font>
             <Font name="Arial Bold" size="15.0" />
           </font>
         </Button>
-        <Button fx:id="btnStop" text="Стоп (E)" onAction="#clickStop" layoutX="-100" layoutY="40" prefHeight="50" prefWidth="90">
+        <Button fx:id="btnStop" text="Стоп (E)" onAction="#clickStop" layoutX="-100" layoutY="60" prefHeight="20" prefWidth="90">
           <font>
             <Font name="Arial Bold" size="15.0" />
           </font>
@@ -107,11 +107,56 @@
         <TextField fx:id="fieldLifeTimePhy" layoutX="-50" layoutY="350" prefWidth="35" />
         <TextField fx:id="fieldLifeTimeJur" layoutX="-50" layoutY="375" prefWidth="35" />
 
-        <Button fx:id="btnCurrentObjects" text="Текущие объекты" onAction="#clickCurrentObjects" layoutX="-190" layoutY="400" prefHeight="50" prefWidth="180">
+        <Button fx:id="btnCurrentObjects" text="Текущие объекты" onAction="#clickCurrentObjects" layoutX="-100" layoutY="0" prefHeight="45" prefWidth="90" wrapText="true">
           <font>
             <Font name="Arial Bold" size="15.0" />
           </font>
         </Button>
+
+        <Label layoutX="-190" layoutY="400" text="Интеллект объектов" >
+          <font>
+            <Font name="System Bold" size="14.0" />
+          </font>
+        </Label>
+        <Label layoutX="-195" layoutY="425" text="Физические лица" >
+          <font>
+            <Font name="System" size="13.0" />
+          </font>
+        </Label>
+        <Label layoutX="-195" layoutY="445" text="Юридические лица" >
+          <font>
+            <Font name="System" size="13.0" />
+          </font>
+        </Label>
+
+        <Button fx:id="btnPhyIntellect" text="ON" onAction="#clickPhyIntellect" layoutX="-70" layoutY="420" prefWidth="70">
+          <font>
+            <Font name="Arial" size="13.0" />
+          </font>
+        </Button>
+        <Button fx:id="btnJurIntellect" text="ON" onAction="#clickJurIntellect" layoutX="-70" layoutY="445" prefWidth="70">
+          <font>
+            <Font name="Arial" size="13.0" />
+          </font>
+        </Button>
+
+        <Label layoutX="-190" layoutY="470" text="Приоритеты потоков" >
+          <font>
+            <Font name="System Bold" size="14.0" />
+          </font>
+        </Label>
+        <Label layoutX="-195" layoutY="495" text="Физические лица" >
+          <font>
+            <Font name="System" size="13.0" />
+          </font>
+        </Label>
+        <Label layoutX="-195" layoutY="515" text="Юридические лица" >
+          <font>
+            <Font name="System" size="13.0" />
+          </font>
+        </Label>
+        <ComboBox fx:id="boxPhyPriority" layoutX="-75" layoutY="490" />
+        <ComboBox fx:id="boxJurPriority" layoutX="-75" layoutY="515" />
 
         <MenuBar layoutX="-200">
           <menus>
@@ -133,8 +178,10 @@
             </Menu>
           </menus>
         </MenuBar>
-        <Rectangle height="600" width="1" layoutX="550" fill="black"/>
-        <Rectangle height="1" width="1100" layoutY="300" fill="black"/>
+
+        <Rectangle height="300" width="550" layoutX="0" layoutY="0" fill="cornflowerblue"/>
+        <Rectangle height="300" width="550" layoutX="550" layoutY="300" fill="darkcyan"/>
+
 
       </children>
     </Pane>

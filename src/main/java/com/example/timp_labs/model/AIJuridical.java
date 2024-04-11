@@ -5,7 +5,14 @@ import com.example.timp_labs.Habitat;
 import java.util.Vector;
 
 public class AIJuridical extends BaseAI {
-    public AIJuridical(String name) {
+    private static AIJuridical instance;
+    public static AIJuridical getInstance() {
+        if (instance == null) {
+            instance = new AIJuridical("AI Juridical");
+        }
+        return instance;
+    }
+    private AIJuridical(String name) {
         super(name);
         // Случайная точка назначения для юридических лиц: x:[0; 470] y:[0; 220] (левая верхняя четверть)
         leftBoundX = 0;
@@ -13,5 +20,6 @@ public class AIJuridical extends BaseAI {
         lowerBoundY = 0;
         upperBoundY = 220;
         objectType = "JuridicalPerson";
+        monitor = "monitor jur";
     }
 }

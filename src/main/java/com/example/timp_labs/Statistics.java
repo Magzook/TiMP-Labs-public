@@ -2,9 +2,7 @@ package com.example.timp_labs;
 
 import java.util.*;
 
-import com.example.timp_labs.model.BaseAI;
-import com.example.timp_labs.model.JuridicalPerson;
-import com.example.timp_labs.model.PhysicalPerson;
+import com.example.timp_labs.model.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -52,6 +50,26 @@ public class Statistics {
     }
     public void startAction() {
         Habitat hab = Habitat.getInstance();
+        Statistics st = Statistics.getInstance();
+        AIPhysical th1 = AIPhysical.getInstance();
+        AIJuridical th2 = AIJuridical.getInstance();
+        // Разбудить потоки, если они спят
+        if (!th1.isActive) {
+            th1.isActive = true;
+            st.mainController.btnPhyIntellect.setText("ON");
+            String monitor = th1.monitor;
+            synchronized (monitor) {
+                monitor.notify();
+            }
+        }
+        if (!th2.isActive) {
+            th2.isActive = true;
+            st.mainController.btnJurIntellect.setText("ON");
+            String monitor = th2.monitor;
+            synchronized (monitor) {
+                monitor.notify();
+            }
+        }
 
         if (restartFlag || firstActionFlag) {
             hab.getObjCollection().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView())); // Очистка изображений
@@ -86,12 +104,14 @@ public class Statistics {
                            }
                        },
                 4,
-                1000);
+                1000); //1000
     }
     public void stopAction() {
         startFlag = false;
         timer.cancel();
         timer = new Timer();
+        AIPhysical.getInstance().isActive = false;
+        AIJuridical.getInstance().isActive = false;
 
         if (mainController.btnShowInfo.isSelected()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -121,12 +141,15 @@ public class Statistics {
                 mainController.fieldLifeTimeJur.setDisable(false);
                 mainController.boxP1.setDisable(false);
                 mainController.boxP2.setDisable(false);
+                mainController.boxPhyPriority.setDisable(false);
+                mainController.boxJurPriority.setDisable(false);
             }
             else {
                 mainController.btnStart.setDisable(true);
                 mainController.btnStop.setDisable(false);
                 mainController.menuStart.setDisable(true);
                 mainController.menuStop.setDisable(false);
+
                 startAction();
             }
         }

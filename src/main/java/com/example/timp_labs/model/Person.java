@@ -15,7 +15,6 @@ public abstract class Person implements IBehaviour {
     protected double destinationX, destinationY; // Пункт назначения картинки
     protected double shiftX, shiftY; // Сдвиг картинки за 1 раз
     protected Boolean hasToTravel = null; // Нужно ли вообще двигать картинку?
-
     public Person() {
         Habitat hab = Habitat.getInstance();
         Random rand = new Random();
@@ -24,7 +23,6 @@ public abstract class Person implements IBehaviour {
         } while (hab.getIdCollection().contains(id)); // Проверка на уникальность
     }
     public abstract ImageView getImageView();
-
     public int getId() {
         return id;
     }

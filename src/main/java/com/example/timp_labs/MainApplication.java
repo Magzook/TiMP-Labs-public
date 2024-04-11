@@ -27,10 +27,8 @@ public class MainApplication extends Application {
         stage.setScene(scene);
         stage.setOnCloseRequest(t -> System.exit(0)); // Остановка приложения по нажатию крестика
 
-        AIPhysical threadPhy = new AIPhysical("Physical AI");
-        threadPhy.start();
-        AIJuridical threadJur = new AIJuridical("Juridical AI");
-        threadJur.start();
+        AIPhysical.getInstance().start();
+        AIJuridical.getInstance().start();
 
         stage.show();
     }

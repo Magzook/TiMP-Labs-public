@@ -1,15 +1,16 @@
 package com.example.timp_labs;
 
-import com.example.timp_labs.model.JuridicalPerson;
-import com.example.timp_labs.model.PhysicalPerson;
+import com.example.timp_labs.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
+import java.nio.channels.AsynchronousServerSocketChannel;
 import java.util.Map;
 import java.util.Timer;
+import java.util.Vector;
 
 public class Controller {
     @FXML
@@ -29,7 +30,7 @@ public class Controller {
     }
 
     @FXML
-    public Button btnStart, btnStop;
+    public Button btnStart, btnStop, btnPhyIntellect, btnJurIntellect;
     @FXML
     public CheckBox btnShowInfo;
     @FXML
@@ -38,6 +39,8 @@ public class Controller {
     public TextField fieldN1, fieldN2, fieldLifeTimePhy, fieldLifeTimeJur;
     @FXML
     public ComboBox<String> boxP1, boxP2;
+    @FXML
+    public ComboBox<Integer> boxPhyPriority, boxJurPriority;
     @FXML
     public MenuItem menuStart, menuStop, menuExit;
     @FXML
@@ -59,8 +62,14 @@ public class Controller {
             boxP1.getItems().add(value + "%");
             boxP2.getItems().add(value + "%");
         }
-        boxP1.setValue("60%"); // Значения для комбобоксов по умолчанию
-        boxP2.setValue("30%");
+        for (int value = 1; value <= 10; value++) {
+            boxPhyPriority.getItems().add(value);
+            boxJurPriority.getItems().add(value);
+        }
+        boxP1.setValue("80%"); // Значения для комбобоксов по умолчанию
+        boxP2.setValue("100%");
+        boxPhyPriority.setValue(5);
+        boxJurPriority.setValue(5);
     }
     @FXML
     private void clickStart() {
@@ -81,16 +90,22 @@ public class Controller {
             JuridicalPerson.setLifeTime(lifeTimeJur);
             hab.p1 = Float.parseFloat(boxP1.getValue().replace("%", "")) / 100; // Установление вероятностей рождения
             hab.p2 = Float.parseFloat(boxP2.getValue().replace("%", "")) / 100;
+            AIPhysical.getInstance().setPriority(boxPhyPriority.getValue());
+            AIJuridical.getInstance().setPriority(boxJurPriority.getValue());
             fieldN1.setDisable(true);
             fieldN2.setDisable(true);
             fieldLifeTimePhy.setDisable(true);
             fieldLifeTimeJur.setDisable(true);
             boxP1.setDisable(true);
             boxP2.setDisable(true);
+            boxPhyPriority.setDisable(true);
+            boxJurPriority.setDisable(true);
             btnStart.setDisable(true);
             btnStop.setDisable(false);
             menuStart.setDisable(true);
             menuStop.setDisable(false);
+            // Разбудить потоки, если они спят
+
             Statistics.getInstance().startAction();
         }
         catch (NumberFormatException ex) {
@@ -113,6 +128,9 @@ public class Controller {
         btnStop.setDisable(true);
         menuStart.setDisable(false);
         menuStop.setDisable(true);
+        btnPhyIntellect.setText("OFF");
+        btnJurIntellect.setText("OFF");
+
         if (!btnShowInfo.isSelected()) {
             st.restartFlag = true;
             fieldN1.setDisable(false);
@@ -121,6 +139,8 @@ public class Controller {
             fieldLifeTimeJur.setDisable(false);
             boxP1.setDisable(false);
             boxP2.setDisable(false);
+            boxPhyPriority.setDisable(false);
+            boxJurPriority.setDisable(false);
         }
         st.stopAction();
     }
@@ -196,6 +216,36 @@ public class Controller {
         alert.getDialogPane().setContent(textArea);
         alert.showAndWait();
         if (st.startFlag) st.startAction();
+    }
+    @FXML
+    public void clickPhyIntellect() {
+        String monitor = AIPhysical.getInstance().monitor;
+        if (btnPhyIntellect.getText().equals("ON")) {
+            AIPhysical.getInstance().isActive = false;
+            btnPhyIntellect.setText("OFF");
+        }
+        else {
+            AIPhysical.getInstance().isActive = true;
+            synchronized (monitor) {
+                monitor.notify();
+            }
+            btnPhyIntellect.setText("ON");
+        }
+    }
+    @FXML
+    public void clickJurIntellect() {
+        String monitor = AIJuridical.getInstance().monitor;
+        if (btnJurIntellect.getText().equals("ON")) {
+            AIJuridical.getInstance().isActive = false;
+            btnJurIntellect.setText("OFF");
+        }
+        else {
+            AIJuridical.getInstance().isActive = true;
+            synchronized (monitor) {
+                monitor.notify();
+            }
+            btnJurIntellect.setText("ON");
+        }
     }
     @FXML
     void keyPressed(KeyEvent keyEvent) {
