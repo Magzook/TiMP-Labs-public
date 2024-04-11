@@ -6,11 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-
-import java.nio.channels.AsynchronousServerSocketChannel;
 import java.util.Map;
 import java.util.Timer;
-import java.util.Vector;
 
 public class Controller {
     @FXML
@@ -104,7 +101,6 @@ public class Controller {
             btnStop.setDisable(false);
             menuStart.setDisable(true);
             menuStop.setDisable(false);
-            // Разбудить потоки, если они спят
 
             Statistics.getInstance().startAction();
         }

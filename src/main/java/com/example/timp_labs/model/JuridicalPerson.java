@@ -1,9 +1,7 @@
 package com.example.timp_labs.model;
 
-import com.example.timp_labs.model.Person;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 

@@ -1,8 +1,6 @@
 package com.example.timp_labs.model;
 
 import com.example.timp_labs.Habitat;
-import javafx.scene.shape.Rectangle;
-
 import java.util.Random;
 import java.util.Vector;
 import static java.lang.Math.*;
@@ -12,7 +10,7 @@ public abstract class BaseAI extends Thread {
     protected String objectType;
     protected double leftBoundX, rightBoundX, upperBoundY, lowerBoundY;
     public boolean isActive = true;
-    public String monitor;
+    public String monitor; // дополнительная заглушка исключительно для корректной работы notify()
     public BaseAI(String name) {
         super(name);
     }
@@ -65,12 +63,10 @@ public abstract class BaseAI extends Thread {
                                     obj.moveTo(currentX + obj.shiftX, currentY + obj.shiftY);
                                 }
                             }
-
                         }
                     }
                 }
             }
-
             try {
                 Thread.sleep(20); // при 20 работает хорошо
             } catch (InterruptedException e) {

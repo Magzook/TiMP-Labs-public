@@ -1,7 +1,6 @@
 package com.example.timp_labs;
 
 import java.util.*;
-
 import com.example.timp_labs.model.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;

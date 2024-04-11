@@ -1,9 +1,5 @@
 package com.example.timp_labs.model;
 
-import com.example.timp_labs.Habitat;
-
-import java.util.Vector;
-
 public class AIPhysical extends BaseAI {
     private static AIPhysical instance;
     public static AIPhysical getInstance() {
