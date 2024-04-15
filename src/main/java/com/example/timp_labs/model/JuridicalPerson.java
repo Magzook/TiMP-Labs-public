@@ -20,14 +20,14 @@ public class JuridicalPerson extends Person {
 
     public JuridicalPerson(double x, double y) throws FileNotFoundException {
         super();
-        imageIV = new ImageView(image);
-        imageIV.setX(x);
-        imageIV.setY(y);
-        imageIV.setFitWidth(80);
-        imageIV.setFitHeight(80);
-        imageIV.setPreserveRatio(true);
+        imageView = new ImageView(image);
+        imageView.setX(x);
+        imageView.setY(y);
+        imageView.setFitWidth(80);
+        imageView.setFitHeight(80);
+        imageView.setPreserveRatio(true);
     }
-    public ImageView getImageView() {return imageIV;}
+    public ImageView getImageView() {return imageView;}
     public static void setLifeTime(int lifeTime) {
         JuridicalPerson.lifeTime = lifeTime;
     }

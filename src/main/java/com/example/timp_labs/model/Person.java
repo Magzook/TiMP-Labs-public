@@ -1,19 +1,16 @@
 package com.example.timp_labs.model;
 
 import com.example.timp_labs.Habitat;
+import javafx.application.Platform;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Rectangle;
-
 import java.util.Random;
 
-
 public abstract class Person implements IBehaviour {
-    protected ImageView imageIV;
+    protected ImageView imageView;
     protected int id;
     protected double destinationX, destinationY; // Пункт назначения картинки
     protected double shiftX, shiftY; // Сдвиг картинки за 1 раз
+    protected int shiftsTotal; // Количество сдвигов
     protected Boolean hasToTravel = null; // Нужно ли вообще двигать картинку?
     public Person() {
         Habitat hab = Habitat.getInstance();
@@ -27,13 +24,15 @@ public abstract class Person implements IBehaviour {
         return id;
     }
     public double getX() {
-        return imageIV.getX();
+        return imageView.getX();
     }
     public double getY() {
-        return imageIV.getY();
+        return imageView.getY();
     }
     public void moveTo(double x, double y) {
-        imageIV.setX(x);
-        imageIV.setY(y);
+        Platform.runLater(() -> {
+            imageView.setX(x);
+            imageView.setY(y);
+        });
     }
 }

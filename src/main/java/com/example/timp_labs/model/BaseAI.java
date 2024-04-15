@@ -43,11 +43,13 @@ public abstract class BaseAI extends Thread {
 
                                     double distanceX = abs(currentX - obj.destinationX);
                                     double distanceY = abs(currentY - obj.destinationY);
+                                    obj.shiftsTotal = (int)(sqrt(pow(distanceX, 2) + pow(distanceY, 2)) / SHIFT_DIAGONAL);
                                     double angle = atan(distanceY / distanceX);
                                     obj.shiftX = SHIFT_DIAGONAL * cos(angle);
                                     obj.shiftY = SHIFT_DIAGONAL * sin(angle);
                                     if (currentX > obj.destinationX) obj.shiftX *= -1;
                                     if (currentY > obj.destinationY) obj.shiftY *= -1;
+
                                 }
                                 else {
                                     obj.hasToTravel = false;
@@ -55,12 +57,14 @@ public abstract class BaseAI extends Thread {
                             }
 
                             if (obj.hasToTravel) {
-                                if (sqrt(pow(currentX - obj.destinationX, 2) + pow(currentY - obj.destinationY, 2)) < SHIFT_DIAGONAL) {
+                                if (obj.shiftsTotal == 0) {
                                     obj.hasToTravel = false;
                                     obj.moveTo(obj.destinationX, obj.destinationY);
+
                                 }
                                 else {
                                     obj.moveTo(currentX + obj.shiftX, currentY + obj.shiftY);
+                                    obj.shiftsTotal--;
                                 }
                             }
                         }

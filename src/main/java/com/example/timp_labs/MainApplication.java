@@ -2,7 +2,6 @@ package com.example.timp_labs;
 
 import com.example.timp_labs.model.AIJuridical;
 import com.example.timp_labs.model.AIPhysical;
-import com.example.timp_labs.model.BaseAI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -184,7 +184,6 @@
         <Rectangle height="300" width="550" layoutX="0" layoutY="300" fill="black"/>
         <Rectangle height="300" width="550" layoutX="550" layoutY="0" fill="black"/>
 
-
       </children>
     </Pane>
 
