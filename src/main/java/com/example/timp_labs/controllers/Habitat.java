@@ -1,4 +1,4 @@
-package com.example.timp_labs;
+package com.example.timp_labs.controllers;
 
 import com.example.timp_labs.model.JuridicalPerson;
 import com.example.timp_labs.model.Person;

@@ -1,6 +1,6 @@
 package com.example.timp_labs.model;
 
-import com.example.timp_labs.Habitat;
+import com.example.timp_labs.controllers.Habitat;
 import java.util.Random;
 import java.util.Vector;
 import static java.lang.Math.*;

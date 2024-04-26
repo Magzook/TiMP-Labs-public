@@ -1,5 +1,7 @@
-package com.example.timp_labs;
+package com.example.timp_labs.main;
 
+import com.example.timp_labs.controllers.Habitat;
+import com.example.timp_labs.controllers.Statistics;
 import com.example.timp_labs.model.AIJuridical;
 import com.example.timp_labs.model.AIPhysical;
 import javafx.application.Application;
@@ -10,11 +12,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class MainApplication extends Application {
-    Habitat hab;
-    Statistics stats;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("Main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/com/example/timp_labs/Main.fxml"));
         Parent root = fxmlLoader.load();
 
         Statistics.getInstance().setMainController(fxmlLoader.getController());

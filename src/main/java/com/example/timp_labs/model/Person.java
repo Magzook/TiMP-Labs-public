@@ -1,6 +1,6 @@
 package com.example.timp_labs.model;
 
-import com.example.timp_labs.Habitat;
+import com.example.timp_labs.controllers.Habitat;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 import java.util.Random;

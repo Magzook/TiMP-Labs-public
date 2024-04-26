@@ -1,6 +1,7 @@
-package com.example.timp_labs;
+package com.example.timp_labs.controllers;
 
 import java.util.*;
+
 import com.example.timp_labs.model.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
