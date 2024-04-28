@@ -6,8 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import java.util.Map;
-import java.util.Timer;
+import java.io.*;
+import java.util.*;
 
 public class Controller {
     @FXML
@@ -25,6 +25,7 @@ public class Controller {
     public Pane getPane() {
         return modalPane;
     }
+
 
     @FXML
     public Button btnStart, btnStop, btnPhyIntellect, btnJurIntellect;
@@ -44,29 +45,42 @@ public class Controller {
     public CheckMenuItem menuShowInfo;
     @FXML
     public RadioMenuItem menuShowTime, menuHideTime;
-    @FXML
-    void initialize() {
-        btnStop.setDisable(true); // Кнопка "Стоп" изначально заблокирована
-        menuStop.setDisable(true);
-        btnShowTime.setSelected(true); // Переключатель "Показать время" изначально выбран
-        menuShowTime.setSelected(true);
-        fieldN1.setText("1"); // Значения для текстовых полей по умолчанию
-        fieldN2.setText("2");
-        fieldLifeTimePhy.setText("8");
-        fieldLifeTimeJur.setText("30");
-        // Дальше идёт заполнение комбобоксов
-        for (int value = 0; value <= 100; value += 10) {
-            boxP1.getItems().add(value + "%");
-            boxP2.getItems().add(value + "%");
+
+    public void setParameters() {
+        try {
+            FileMaster.setDefaultDirectory();
+            FileMaster.loadFromFile();
         }
-        for (int value = 1; value <= 10; value++) {
-            boxPhyPriority.getItems().add(value);
-            boxJurPriority.getItems().add(value);
+        catch (FileNotFoundException ex) {
+            btnShowTime.setSelected(true); // Переключатель "Показать время" изначально выбран
+            menuShowTime.setSelected(true);
+            fieldN1.setText("1"); // Значения для текстовых полей по умолчанию
+            fieldN2.setText("2");
+            fieldLifeTimePhy.setText("8");
+            fieldLifeTimeJur.setText("30");
+            boxP1.setValue("80%"); // Значения для комбобоксов по умолчанию
+            boxP2.setValue("100%");
+            boxPhyPriority.setValue(5);
+            boxJurPriority.setValue(5);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
-        boxP1.setValue("80%"); // Значения для комбобоксов по умолчанию
-        boxP2.setValue("100%");
-        boxPhyPriority.setValue(5);
-        boxJurPriority.setValue(5);
+        finally {
+            // Кнопка "Стоп" изначально заблокирована
+            btnStop.setDisable(true);
+            menuStop.setDisable(true);
+            // Заполнение комбобоксов
+            for (int value = 0; value <= 100; value += 10) {
+                boxP1.getItems().add(value + "%");
+                boxP2.getItems().add(value + "%");
+            }
+            for (int value = 1; value <= 10; value++) {
+                boxPhyPriority.getItems().add(value);
+                boxJurPriority.getItems().add(value);
+            }
+        }
     }
     @FXML
     private void clickStart() {
@@ -124,8 +138,6 @@ public class Controller {
         btnStop.setDisable(true);
         menuStart.setDisable(false);
         menuStop.setDisable(true);
-        btnPhyIntellect.setText("OFF");
-        btnJurIntellect.setText("OFF");
 
         if (!btnShowInfo.isSelected()) {
             st.restartFlag = true;
@@ -181,17 +193,19 @@ public class Controller {
         st.showTimer();
     }
     @FXML
-    public void menuClickExit() {
+    public void exitApp() throws IOException {
+        FileMaster.setDefaultDirectory();
+        FileMaster.saveToFile();
         System.exit(0);
     }
     @FXML
     public void clickCurrentObjects() {
         Statistics st = Statistics.getInstance();
         Habitat hab = Habitat.getInstance();
-        if (!st.firstActionFlag) {
-            st.timer.cancel();
-            st.timer = new Timer();
-        }
+        st.timer.cancel();
+        AIPhysical.getInstance().isActive = false;
+        AIJuridical.getInstance().isActive = false;
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Информация");
         alert.setHeaderText("Живые объекты");
@@ -215,33 +229,34 @@ public class Controller {
     }
     @FXML
     public void clickPhyIntellect() {
-        String monitor = AIPhysical.getInstance().monitor;
-        if (btnPhyIntellect.getText().equals("ON")) {
-            AIPhysical.getInstance().isActive = false;
-            btnPhyIntellect.setText("OFF");
-        }
-        else {
-            AIPhysical.getInstance().isActive = true;
-            synchronized (monitor) {
-                monitor.notify();
-            }
-            btnPhyIntellect.setText("ON");
-        }
+        String mode = btnPhyIntellect.getText();
+        if (mode.equals("ON")) mode = "OFF"; else mode = "ON";
+        btnPhyIntellect.setText(mode);
+        Statistics st = Statistics.getInstance();
+        if (st.startFlag) st.phyIntellect();
     }
     @FXML
     public void clickJurIntellect() {
-        String monitor = AIJuridical.getInstance().monitor;
-        if (btnJurIntellect.getText().equals("ON")) {
-            AIJuridical.getInstance().isActive = false;
-            btnJurIntellect.setText("OFF");
-        }
-        else {
-            AIJuridical.getInstance().isActive = true;
-            synchronized (monitor) {
-                monitor.notify();
-            }
-            btnJurIntellect.setText("ON");
-        }
+        String mode = btnJurIntellect.getText();
+        if (mode.equals("ON")) mode = "OFF"; else mode = "ON";
+        btnJurIntellect.setText(mode);
+        Statistics st = Statistics.getInstance();
+        if (st.startFlag) st.jurIntellect();
+    }
+
+    @FXML
+    public void clickLoadFromFile() throws IOException, ClassNotFoundException {
+        FileMaster.callLoadDialogWindow();
+        FileMaster.loadFromFile();
+    }
+    @FXML
+    public void clickSaveToFile() throws IOException {
+        FileMaster.callSaveDialogWindow();
+        FileMaster.saveToFile();
+    }
+    @FXML
+    public void openConsole() {
+
     }
     @FXML
     void keyPressed(KeyEvent keyEvent) {
@@ -275,6 +290,4 @@ public class Controller {
                 break;
         }
     }
-
-
 }

@@ -9,7 +9,7 @@ public abstract class BaseAI extends Thread {
     protected final double SHIFT_DIAGONAL = 5; // На сколько пикселей смещается картинка за один сдвиг
     protected String objectType;
     protected double leftBoundX, rightBoundX, upperBoundY, lowerBoundY;
-    public boolean isActive = true;
+    public boolean isActive = false;
     public String monitor; // дополнительная заглушка исключительно для корректной работы notify()
     public BaseAI(String name) {
         super(name);

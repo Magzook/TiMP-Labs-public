@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 
 public class PhysicalPerson extends Person {
     public static int spawnedCount = 0;
-    static Image image;
+    public static Image image;
     private static int lifeTime;
 
     static {
@@ -20,6 +20,9 @@ public class PhysicalPerson extends Person {
 
     public PhysicalPerson(double x, double y) throws FileNotFoundException {
         super();
+        createImageView(x, y);
+    }
+    public void createImageView(double x, double y) {
         imageView = new ImageView(image);
         imageView.setX(x);
         imageView.setY(y);

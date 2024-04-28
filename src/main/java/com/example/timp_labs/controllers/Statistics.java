@@ -1,7 +1,6 @@
 package com.example.timp_labs.controllers;
 
 import java.util.*;
-
 import com.example.timp_labs.model.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -10,11 +9,13 @@ import javafx.scene.control.TextArea;
 
 public class Statistics {
     public Timer timer;
-    public boolean timeFlag = true, startFlag, restartFlag = false, firstActionFlag = true;
-    private int seconds = -1, minutes = 0;
+    public boolean timeFlag = true, startFlag, restartFlag = false/*, firstActionFlag = true*/;
+    public int seconds = -1, minutes = 0;
     public Controller mainController;
     private static Statistics instance;
-    private Statistics() {}
+    private Statistics() {
+        timer = new Timer();
+    }
     public static Statistics getInstance() {
         if (instance == null) {
             instance = new Statistics();
@@ -49,29 +50,12 @@ public class Statistics {
         mainController.getLabelTimer().setText(time);
     }
     public void startAction() {
-        Habitat hab = Habitat.getInstance();
-        Statistics st = Statistics.getInstance();
-        AIPhysical th1 = AIPhysical.getInstance();
-        AIJuridical th2 = AIJuridical.getInstance();
-        // Разбудить потоки, если они спят
-        if (!th1.isActive) {
-            th1.isActive = true;
-            st.mainController.btnPhyIntellect.setText("ON");
-            String monitor = th1.monitor;
-            synchronized (monitor) {
-                monitor.notify();
-            }
-        }
-        if (!th2.isActive) {
-            th2.isActive = true;
-            st.mainController.btnJurIntellect.setText("ON");
-            String monitor = th2.monitor;
-            synchronized (monitor) {
-                monitor.notify();
-            }
-        }
+        // Разбудить потоки, если это необходимо
+        phyIntellect();
+        jurIntellect();
 
-        if (restartFlag || firstActionFlag) {
+        if (restartFlag) {
+            Habitat hab = Habitat.getInstance();
             hab.getObjCollection().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView())); // Очистка изображений
             hab.getObjCollection().clear();  // Очистка всех коллекций
             hab.getBornCollection().clear();
@@ -80,13 +64,11 @@ public class Statistics {
             JuridicalPerson.spawnedCount = 0;
             seconds = -1;
             minutes = 0;
-            timer = new Timer();
             restartFlag = false;
-            firstActionFlag = false;
+            //firstActionFlag = false;
         }
-
+        timer = new Timer();
         startFlag = true;
-
         timer.schedule(new TimerTask() {
                            @Override
                            public void run() {
@@ -153,6 +135,29 @@ public class Statistics {
                 startAction();
             }
         }
-
+    }
+    public void phyIntellect() {
+        if (mainController.btnPhyIntellect.getText().equals("ON")) {
+            AIPhysical.getInstance().isActive = true;
+            String monitor = AIPhysical.getInstance().monitor;
+            synchronized (monitor) {
+                monitor.notify();
+            }
+        }
+        else {
+            AIPhysical.getInstance().isActive = false;
+        }
+    }
+    public void jurIntellect() {
+        if (mainController.btnJurIntellect.getText().equals("ON")) {
+            AIJuridical.getInstance().isActive = true;
+            String monitor = AIJuridical.getInstance().monitor;
+            synchronized (monitor) {
+                monitor.notify();
+            }
+        }
+        else {
+            AIJuridical.getInstance().isActive = false;
+        }
     }
 }

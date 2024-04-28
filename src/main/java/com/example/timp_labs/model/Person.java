@@ -3,10 +3,12 @@ package com.example.timp_labs.model;
 import com.example.timp_labs.controllers.Habitat;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
+
+import java.io.Serializable;
 import java.util.Random;
 
-public abstract class Person implements IBehaviour {
-    protected ImageView imageView;
+public abstract class Person implements Serializable {
+    protected transient ImageView imageView;
     protected int id;
     protected double destinationX, destinationY; // Пункт назначения картинки
     protected double shiftX, shiftY; // Сдвиг картинки за 1 раз
@@ -20,6 +22,7 @@ public abstract class Person implements IBehaviour {
         } while (hab.getIdCollection().contains(id)); // Проверка на уникальность
     }
     public abstract ImageView getImageView();
+    public abstract void createImageView(double x, double y);
     public int getId() {
         return id;
     }
@@ -34,5 +37,12 @@ public abstract class Person implements IBehaviour {
             imageView.setX(x);
             imageView.setY(y);
         });
+    }
+    public void print() {
+        System.out.print("ID: " + id);
+        System.out.print("\tShiftsTotal:" + shiftsTotal);
+        if (this instanceof PhysicalPerson) System.out.print("\ttype:Physical");
+        else if (this instanceof JuridicalPerson) System.out.print("\ttype:Juridical");
+        System.out.println();
     }
 }
