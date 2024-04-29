@@ -1,5 +1,6 @@
 package com.example.timp_labs.controllers;
 
+import com.example.timp_labs.console.MyConsole;
 import com.example.timp_labs.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -255,8 +256,8 @@ public class Controller {
         FileMaster.saveToFile();
     }
     @FXML
-    public void openConsole() {
-
+    public void openConsole() throws IOException {
+        new MyConsole();
     }
     @FXML
     void keyPressed(KeyEvent keyEvent) {

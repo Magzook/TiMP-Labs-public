@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.* ?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.TextArea?>
+<AnchorPane focusTraversable="true" prefHeight="750.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.timp_labs.controllers.ConsoleController">
+    <TextArea fx:id="textArea" prefWidth="800" prefHeight="500" wrapText="true">
+        <font>
+            <Font name="Arial Bold" size="20"/>
+        </font>
+    </TextArea>
+</AnchorPane>
+
+
+

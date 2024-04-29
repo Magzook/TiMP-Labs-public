@@ -15,10 +15,10 @@ public class FileMaster {
     static {
         fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(defaultConfigFolder));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Текстовые файлы", "*.txt"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Файл конфигурации", "*.dat"));
     }
     public static void setDefaultDirectory() {
-        directory = defaultConfigFolder + "\\last_config.txt";
+        directory = defaultConfigFolder + "\\last_config.dat";
     }
     public static void callSaveDialogWindow() {
         File file = fileChooser.showSaveDialog(new Stage());
