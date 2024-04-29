@@ -42,6 +42,10 @@ public class FileMaster {
         st.restartFlag = false;
         AIPhysical.getInstance().isActive = false;
         AIJuridical.getInstance().isActive = false;
+        ct.btnStart.setDisable(false);
+        ct.menuStart.setDisable(false);
+        ct.btnStop.setDisable(true);
+        ct.menuStop.setDisable(true);
         // Очистить изображения
         hab.getObjCollection().forEach((tmp) -> ct.getPane().getChildren().remove(tmp.getImageView()));
         // Очистить старые коллекции

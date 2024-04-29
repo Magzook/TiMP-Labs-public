@@ -10,7 +10,7 @@ public class MyConsole {
     public MyConsole() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/com/example/timp_labs/Console.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 500);
+        Scene scene = new Scene(fxmlLoader.load(), 900, 500);
         Stage stage = new Stage();
         stage.setTitle("Console");
         stage.setScene(scene);

@@ -194,7 +194,7 @@
             <Font name="Arial Bold" size="15.0" />
           </font>
         </Button>
-        <Button text="Консоль&gt;....." fx:id="btnConsole" onAction="#openConsole" layoutX="-90" layoutY="93" prefWidth="90" prefHeight="53" wrapText="true" textAlignment="CENTER">
+        <Button text="Консоль&lt;/&gt;" fx:id="btnConsole" onAction="#openConsole" layoutX="-90" layoutY="93" prefWidth="90" prefHeight="54" wrapText="true" textAlignment="CENTER">
           <font>
             <Font name="Arial Bold" size="15.0" />
           </font>

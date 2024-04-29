@@ -203,9 +203,9 @@ public class Controller {
     public void clickCurrentObjects() {
         Statistics st = Statistics.getInstance();
         Habitat hab = Habitat.getInstance();
-        st.timer.cancel();
-        AIPhysical.getInstance().isActive = false;
-        AIJuridical.getInstance().isActive = false;
+        //st.timer.cancel();
+        //AIPhysical.getInstance().isActive = false;
+        //AIJuridical.getInstance().isActive = false;
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Информация");
@@ -226,7 +226,7 @@ public class Controller {
         textArea.setWrapText(true);
         alert.getDialogPane().setContent(textArea);
         alert.showAndWait();
-        if (st.startFlag) st.startAction();
+        //if (st.startFlag) st.startAction();
     }
     @FXML
     public void clickPhyIntellect() {
