@@ -49,8 +49,7 @@ public class Controller {
 
     public void setParameters() {
         try {
-            FileMaster.setDefaultDirectory();
-            FileMaster.loadFromFile();
+            FileMaster.loadConfig();
         }
         catch (FileNotFoundException ex) {
             btnShowTime.setSelected(true); // Переключатель "Показать время" изначально выбран
@@ -64,8 +63,6 @@ public class Controller {
             boxPhyPriority.setValue(5);
             boxJurPriority.setValue(5);
         } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
         finally {
@@ -195,8 +192,7 @@ public class Controller {
     }
     @FXML
     public void exitApp() throws IOException {
-        FileMaster.setDefaultDirectory();
-        FileMaster.saveToFile();
+        FileMaster.saveConfig();
         System.exit(0);
     }
     @FXML
@@ -247,13 +243,11 @@ public class Controller {
 
     @FXML
     public void clickLoadFromFile() throws IOException, ClassNotFoundException {
-        FileMaster.callLoadDialogWindow();
-        FileMaster.loadFromFile();
+        FileMaster.loadObjects();
     }
     @FXML
     public void clickSaveToFile() throws IOException {
-        FileMaster.callSaveDialogWindow();
-        FileMaster.saveToFile();
+        FileMaster.saveObjects();
     }
     @FXML
     public void openConsole() throws IOException {

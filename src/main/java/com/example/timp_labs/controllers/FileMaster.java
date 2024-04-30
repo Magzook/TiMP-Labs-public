@@ -9,30 +9,72 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 public class FileMaster {
-    private static final String defaultConfigFolder = System.getProperty("user.dir");
-    private static String directory;
+    private static final String folder = System.getProperty("user.dir");
     private static FileChooser fileChooser;
     static {
         fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(defaultConfigFolder));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Файл конфигурации", "*.dat"));
+        fileChooser.setInitialDirectory(new File(folder));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Сохранённые объекты", "*.dat"));
     }
-    public static void setDefaultDirectory() {
-        directory = defaultConfigFolder + "\\last_config.dat";
+    public static void loadConfig() throws IOException {
+        BufferedReader reader;
+        reader = new BufferedReader(new FileReader(folder + "\\config.txt"));
+        Controller ct = Statistics.getInstance().mainController;
+        // Показывать информацию?
+        ct.btnShowInfo.setSelected(Boolean.parseBoolean(reader.readLine()));
+        // Показывать время?
+        String showTime = reader.readLine();
+        if (showTime.equals("true")) {
+            ct.btnShowTime.setSelected(true);
+        }
+        else {
+            ct.btnHideTime.setSelected(true);
+        }
+        // Периоды рождения
+        ct.fieldN1.setText(reader.readLine());
+        ct.fieldN2.setText(reader.readLine());
+        // Вероятности рождения
+        ct.boxP1.setValue(reader.readLine());
+        ct.boxP2.setValue(reader.readLine());
+        // Время жизни объектов
+        ct.fieldLifeTimePhy.setText(reader.readLine());
+        ct.fieldLifeTimeJur.setText(reader.readLine());
+        // Интеллект объектов
+        ct.btnPhyIntellect.setText(reader.readLine());
+        ct.btnJurIntellect.setText(reader.readLine());
+        // Приоритет потоков
+        ct.boxPhyPriority.setValue(Integer.parseInt(reader.readLine()));
+        ct.boxJurPriority.setValue(Integer.parseInt(reader.readLine()));
+        reader.close();
     }
-    public static void callSaveDialogWindow() {
-        File file = fileChooser.showSaveDialog(new Stage());
-        if (file == null) directory = null;
-        else directory = file.getPath();
+    public static void saveConfig() throws IOException {
+        FileWriter fw = new FileWriter(folder + "\\config.txt");
+        Controller ct = Statistics.getInstance().mainController;
+        // Показывать информацию?
+        fw.write((ct.btnShowInfo.isSelected()) + "\n");
+        // Показывать время?
+        fw.write((ct.btnShowTime.isSelected()) + "\n");
+        // Периоды рождения
+        fw.write(ct.fieldN1.getText() + "\n"); //String
+        fw.write(ct.fieldN2.getText() + "\n");
+        // Вероятности рождения
+        fw.write(ct.boxP1.getValue() + "\n"); //String
+        fw.write(ct.boxP2.getValue() + "\n");
+        // Время жизни объектов
+        fw.write(ct.fieldLifeTimePhy.getText() + "\n"); //String
+        fw.write(ct.fieldLifeTimeJur.getText() + "\n");
+        // Интеллект объектов
+        fw.write(ct.btnPhyIntellect.getText() + "\n"); //String
+        fw.write(ct.btnJurIntellect.getText() + "\n");
+        // Приоритет потоков
+        fw.write(ct.boxPhyPriority.getValue() + "\n"); //int
+        fw.write(ct.boxJurPriority.getValue() + "\n");
+        fw.close();
     }
-    public static void callLoadDialogWindow() {
+    public static void loadObjects() throws IOException, ClassNotFoundException {
         File file = fileChooser.showOpenDialog(new Stage());
-        if (file == null) directory = null;
-        else directory = file.getPath();
-    }
-    public static void loadFromFile() throws IOException, ClassNotFoundException {
-        if (directory == null) return;
-        FileInputStream fis = new FileInputStream(directory);
+        if (file == null) return;
+        FileInputStream fis = new FileInputStream(file.getPath());
         ObjectInputStream ois = new ObjectInputStream(fis);
         Habitat hab = Habitat.getInstance();
         Statistics st = Statistics.getInstance();
@@ -68,83 +110,36 @@ public class FileMaster {
             obj.createImageView(currentX, currentY);
             ct.getPane().getChildren().add(obj.getImageView());
         }
-        PhysicalPerson.spawnedCount = ois.readInt();
+        PhysicalPerson.spawnedCount = ois.readInt(); // Число созданных за все время объектов
         JuridicalPerson.spawnedCount = ois.readInt();
-        // Чтение параметров симуляции
         int time = ois.readInt(); // Текущее время
         st.minutes = time / 60;
         st.seconds = time % 60;
         if (st.seconds != -1) st.updateTimer();
-        boolean showInfo = ois.readBoolean(); // Показывать информацию?
-        ct.btnShowInfo.setSelected(showInfo);
-        ct.menuShowInfo.setSelected(showInfo);
-        boolean showTime = ois.readBoolean(); // Показывать время?
-        if (showTime) {
-            ct.btnShowTime.setSelected(true);
-            ct.menuShowTime.setSelected(true);
-        }
-        else {
-            ct.btnHideTime.setSelected(true);
-            ct.menuHideTime.setSelected(true);
-            st.showTimer();
-        }
-        ct.fieldN1.setText(ois.readUTF()); // Периоды рождения
-        ct.fieldN2.setText(ois.readUTF());
-        ct.boxP1.setValue(ois.readUTF()); // Вероятности рождения
-        ct.boxP2.setValue(ois.readUTF());
-        ct.fieldLifeTimePhy.setText(ois.readUTF()); // Время жизни
-        ct.fieldLifeTimeJur.setText(ois.readUTF());
 
-        String mode = ois.readUTF(); // Интеллект объектов
-        ct.btnPhyIntellect.setText(mode);
-        //phyIntellect(mode);
-        mode = ois.readUTF();
-        ct.btnJurIntellect.setText(mode);
-        //jurIntellect(mode);
-
-        int priority = ois.readInt(); // Приоритет потоков
-        ct.boxPhyPriority.setValue(priority);
-        AIPhysical.getInstance().setPriority(priority);
-        priority = ois.readInt();
-        ct.boxJurPriority.setValue(priority);
-        AIJuridical.getInstance().setPriority(priority);
         ois.close();
         fis.close();
     }
-
-    public static void saveToFile() throws IOException {
-        if (directory == null) return;
-        FileOutputStream fos = new FileOutputStream(directory, false);
+    public static void saveObjects() throws IOException {
+        File file = fileChooser.showSaveDialog(new Stage());
+        if (file == null) return;
+        FileOutputStream fos = new FileOutputStream(file.getPath());
         ObjectOutputStream oos = new ObjectOutputStream(fos);
         Vector<Person> objCollection = Habitat.getInstance().getObjCollection();
         HashMap<Integer, Integer> bornCollection = Habitat.getInstance().getBornCollection();
         synchronized (objCollection) {
-            oos.writeInt(objCollection.size()); // Количество объектов
+            int a = objCollection.size();
+            oos.writeInt(a); // Количество объектов
             for (var obj : objCollection) {
                 oos.writeObject(obj); // Объект
                 oos.writeInt(bornCollection.get(obj.getId())); // Время рождения
                 oos.writeDouble(obj.getX()); // Координата X
                 oos.writeDouble(obj.getY()); // Координата Y
             }
-            oos.writeInt(PhysicalPerson.spawnedCount); // Количество живых объектов одного типа
-            oos.writeInt(JuridicalPerson.spawnedCount);
-            // Далее надо записать параметры симуляции
-            Statistics st = Statistics.getInstance();
-            oos.writeInt(st.getTime()); // Текущее время
-            Controller ct = st.mainController;
-            oos.writeBoolean(ct.btnShowInfo.isSelected()); // Показывать информацию?
-            oos.writeBoolean(ct.btnShowTime.isSelected()); // Показывать время?
-            oos.writeUTF(ct.fieldN1.getText()); // Периоды рождения
-            oos.writeUTF(ct.fieldN2.getText());
-            oos.writeUTF(ct.boxP1.getValue()); // Вероятности рождения
-            oos.writeUTF(ct.boxP2.getValue());
-            oos.writeUTF(ct.fieldLifeTimePhy.getText()); // Время жизни
-            oos.writeUTF(ct.fieldLifeTimeJur.getText());
-            oos.writeUTF(ct.btnPhyIntellect.getText()); // Интеллект объектов
-            oos.writeUTF(ct.btnJurIntellect.getText());
-            oos.writeInt(ct.boxPhyPriority.getValue()); // Приоритет потоков
-            oos.writeInt(ct.boxJurPriority.getValue());
         }
+        oos.writeInt(PhysicalPerson.spawnedCount); // Количество живых объектов одного типа
+        oos.writeInt(JuridicalPerson.spawnedCount);
+        oos.writeInt(Statistics.getInstance().getTime()); // Текущее время
         oos.close();
         fos.close();
     }

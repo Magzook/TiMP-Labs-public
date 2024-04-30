@@ -54,7 +54,7 @@ public class Habitat {
                     if (obj instanceof PhysicalPerson) lifeTime = PhysicalPerson.getLifeTime();
                     else if (obj instanceof JuridicalPerson) lifeTime = JuridicalPerson.getLifeTime();
 
-                    if (bornCollection.get(id) + lifeTime == st.getTime()) {
+                    if (bornCollection.get(id) + lifeTime <= st.getTime()) {
                         st.mainController.getPane().getChildren().remove(obj.getImageView()); // Удаление изображения
                         objCollection.remove(obj); // Удаление объекта из основной коллекции
                         i--;
