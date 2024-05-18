@@ -1,4 +1,4 @@
-package com.example.timp_labs.model;
+package client.model;
 
 public class AIPhysical extends BaseAI {
     private static AIPhysical instance;

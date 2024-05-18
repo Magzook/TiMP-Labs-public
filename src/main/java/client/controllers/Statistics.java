@@ -1,11 +1,17 @@
-package com.example.timp_labs.controllers;
+package client.controllers;
 
-import java.util.*;
-import com.example.timp_labs.model.*;
+import client.model.AIJuridical;
+import client.model.AIPhysical;
+import client.model.JuridicalPerson;
+import client.model.PhysicalPerson;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
+
+import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Statistics {
     public Timer timer;

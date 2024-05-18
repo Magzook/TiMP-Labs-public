@@ -1,4 +1,4 @@
-package com.example.timp_labs.model;
+package client.model;
 
 public class AIJuridical extends BaseAI {
     private static AIJuridical instance;

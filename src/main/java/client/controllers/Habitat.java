@@ -1,11 +1,14 @@
-package com.example.timp_labs.controllers;
+package client.controllers;
 
-import com.example.timp_labs.model.JuridicalPerson;
-import com.example.timp_labs.model.Person;
-import com.example.timp_labs.model.PhysicalPerson;
+import client.model.JuridicalPerson;
+import client.model.Person;
+import client.model.PhysicalPerson;
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Random;
+import java.util.TreeSet;
+import java.util.Vector;
 
 public class Habitat {
     private int width = 1300, height = 600;

@@ -1,20 +1,21 @@
-package com.example.timp_labs.main;
+package client.main;
 
-import com.example.timp_labs.controllers.Habitat;
-import com.example.timp_labs.controllers.Statistics;
-import com.example.timp_labs.model.AIJuridical;
-import com.example.timp_labs.model.AIPhysical;
+import client.controllers.Habitat;
+import client.controllers.Statistics;
+import client.model.AIJuridical;
+import client.model.AIPhysical;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/com/example/timp_labs/Main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/fxml/Main.fxml"));
         Parent root = fxmlLoader.load();
         Statistics st = Statistics.getInstance();
         st.setMainController(fxmlLoader.getController());

@@ -1,14 +1,19 @@
-package com.example.timp_labs.controllers;
+package client.controllers;
 
-import com.example.timp_labs.console.MyConsole;
-import com.example.timp_labs.model.*;
+import client.console.MyConsole;
+import client.model.AIJuridical;
+import client.model.AIPhysical;
+import client.model.JuridicalPerson;
+import client.model.PhysicalPerson;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import java.io.*;
-import java.util.*;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Map;
 
 public class Controller {
     @FXML

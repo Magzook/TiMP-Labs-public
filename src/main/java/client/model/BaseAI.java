@@ -1,8 +1,10 @@
-package com.example.timp_labs.model;
+package client.model;
 
-import com.example.timp_labs.controllers.Habitat;
+import client.controllers.Habitat;
+
 import java.util.Random;
 import java.util.Vector;
+
 import static java.lang.Math.*;
 
 public abstract class BaseAI extends Thread {

@@ -1,8 +1,9 @@
-package com.example.timp_labs.controllers;
+package client.controllers;
 
-import com.example.timp_labs.model.*;
+import client.model.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
 import java.io.*;
 import java.util.HashMap;
 import java.util.TreeSet;

@@ -1,6 +1,6 @@
-package com.example.timp_labs.model;
+package client.model;
 
-import com.example.timp_labs.controllers.Habitat;
+import client.controllers.Habitat;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
 

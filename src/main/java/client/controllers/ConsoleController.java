@@ -1,11 +1,13 @@
-package com.example.timp_labs.controllers;
-import com.example.timp_labs.model.JuridicalPerson;
-import com.example.timp_labs.model.Person;
-import com.example.timp_labs.model.PhysicalPerson;
+package client.controllers;
+
+import client.model.JuridicalPerson;
+import client.model.Person;
+import client.model.PhysicalPerson;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.util.Vector;
 

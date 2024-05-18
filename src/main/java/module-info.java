@@ -1,13 +1,13 @@
-module com.example.timp_labs {
+module client {
     requires javafx.controls;
     requires javafx.fxml;
     //requires jdk.jfr;
 
 
-    opens com.example.timp_labs to javafx.fxml;
-    exports com.example.timp_labs.model;
-    exports com.example.timp_labs.main;
-    exports com.example.timp_labs.controllers;
-    opens com.example.timp_labs.main to javafx.fxml;
-    opens com.example.timp_labs.controllers to javafx.fxml;
+    //opens client to javafx.fxml;
+    exports client.model;
+    exports client.main;
+    exports client.controllers;
+    opens client.main to javafx.fxml;
+    opens client.controllers to javafx.fxml;
 }

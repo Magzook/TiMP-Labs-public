@@ -1,24 +1,25 @@
-package com.example.timp_labs.model;
+package client.model;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class JuridicalPerson extends Person {
+public class PhysicalPerson extends Person {
     public static int spawnedCount = 0;
-    static Image image;
+    public static Image image;
     private static int lifeTime;
 
     static {
         try {
-            image = new Image(new FileInputStream("src/main/resources/juridical_person.png"));
+            image = new Image(new FileInputStream("src/main/resources/images/physical_person.png"));
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public JuridicalPerson(double x, double y) throws FileNotFoundException {
+    public PhysicalPerson(double x, double y) throws FileNotFoundException {
         super();
         createImageView(x, y);
     }
@@ -26,13 +27,13 @@ public class JuridicalPerson extends Person {
         imageView = new ImageView(image);
         imageView.setX(x);
         imageView.setY(y);
-        imageView.setFitWidth(80);
-        imageView.setFitHeight(80);
-        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(80); // Делаем картинку квадратной
+        imageView.setFitHeight(80); // Делаем картинку квадратной
+        imageView.setPreserveRatio(false); // Исходное фото НЕ квадратное, поэтому начальное соотношение сторон не сохраняем
     }
     public ImageView getImageView() {return imageView;}
     public static void setLifeTime(int lifeTime) {
-        JuridicalPerson.lifeTime = lifeTime;
+        PhysicalPerson.lifeTime = lifeTime;
     }
     public static int getLifeTime() {
         return lifeTime;
