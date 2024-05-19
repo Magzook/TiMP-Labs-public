@@ -5,6 +5,7 @@
 <?import javafx.scene.text.* ?>
 <?import javafx.scene.shape.Rectangle?>
 
+<?import javafx.geometry.Insets?>
 <GridPane fx:id="pane" alignment="CENTER" focusTraversable="true" onKeyPressed="#keyPressed" prefHeight="750.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.Controller">
   <children>
     <Pane fx:id="modalPane" focusTraversable="true" onKeyPressed="#keyPressed" prefHeight="750.0" prefWidth="900.0">
@@ -14,149 +15,130 @@
             <Font name="System Bold" size="22.0" />
           </font>
         </Label>
-        <Label fx:id="labelTimer" alignment="CENTER" layoutX="-80.0" layoutY="5" text="00:00" textFill="#000000">
+        <Label fx:id="labelTimer" alignment="CENTER" layoutX="-60.0" layoutY="125" text="00:00" textFill="#000000">
           <font>
-            <Font name="Arial Bold" size="22.0" />
+            <Font name="Arial Bold" size="18.0" />
           </font>
         </Label>
 
-        <Button fx:id="btnStart" text="Старт" onAction="#clickStart" layoutX="-190" layoutY="35" prefHeight="20" prefWidth="90">
+        <Button fx:id="btnStart" text="Старт" onAction="#clickStart" layoutX="-195" layoutY="35" prefWidth="60" >
           <font>
-            <Font name="Arial Bold" size="15.0" />
+            <Font name="Arial Bold" size="14.0" />
           </font>
         </Button>
-        <Button fx:id="btnStop" text="Стоп" onAction="#clickStop" layoutX="-190" layoutY="60" prefHeight="20" prefWidth="90">
+        <Button fx:id="btnStop" text="Стоп" onAction="#clickStop" layoutX="-195" layoutY="60" prefWidth="60">
           <font>
-            <Font name="Arial Bold" size="15.0" />
+            <Font name="Arial Bold" size="14.0" />
+          </font>
+        </Button>
+        <Button fx:id="btnCurrentObjects" text="Текущие объекты" onAction="#clickCurrentObjects" layoutX="-135" layoutY="35" prefWidth="65" prefHeight="50" wrapText="true">
+          <font>
+            <Font name="Arial" size="12.0" />
+          </font>
+        </Button>
+        <Button text="Консоль &lt;/&gt;" fx:id="btnConsole" onAction="#openConsole" layoutX="-70" layoutY="35" textAlignment="CENTER" prefWidth="65" prefHeight="50" wrapText="true">
+          <font>
+            <Font name="Arial" size="12.0" />
           </font>
         </Button>
 
-        <CheckBox fx:id="btnShowInfo" text="Показывать информацию" onAction="#clickInfo" layoutX="-190" layoutY="150" prefHeight="30" prefWidth="200">
+        <CheckBox fx:id="btnShowInfo" text="Показывать информацию" onAction="#clickInfo" layoutX="-195" layoutY="90" prefHeight="30" prefWidth="200">
           <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Arial" size="11.0" />
           </font>
         </CheckBox>
-
         <fx:define>
           <ToggleGroup fx:id="group"/>
         </fx:define>
-        <RadioButton fx:id="btnShowTime" toggleGroup="$group" text="Показать время (T)" onAction="#clickTimeSwitch" layoutX="-190" layoutY="180" prefHeight="30" prefWidth="200">
+        <RadioButton fx:id="btnShowTime" toggleGroup="$group" text="Показать время" onAction="#clickTimeSwitch" layoutX="-195" layoutY="115" prefHeight="30" prefWidth="200">
           <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Arial" size="11.0" />
           </font>
         </RadioButton>
-        <RadioButton fx:id="btnHideTime" toggleGroup="$group" text="Скрыть время (T)" onAction="#clickTimeSwitch" layoutX="-190" layoutY="200" prefHeight="30" prefWidth="200">
+        <RadioButton fx:id="btnHideTime" toggleGroup="$group" text="Скрыть время" onAction="#clickTimeSwitch" layoutX="-195" layoutY="130" prefHeight="30" prefWidth="200">
           <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Arial" size="11.0" />
           </font>
         </RadioButton>
 
-        <Rectangle height="600" width="1" fill="black"/>
+        <Label layoutX="-115" layoutY="160" text="Физ. лица">
+          <font>
+            <Font name="System Bold" size="11.0"/>
+          </font>
+        </Label>
+        <Label layoutX="-55" layoutY="160" text="Юр. лица">
+          <font>
+            <Font name="System Bold" size="11.0"/>
+          </font>
+        </Label>
 
-        <Label layoutX="-190" layoutY="240" text="Периоды рождения (сек)" >
+        <Label layoutX="-202" layoutY="170" text="Периоды рождения" prefWidth="80" wrapText="true" textAlignment="RIGHT">
           <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="System Bold" size="11.0" />
           </font>
         </Label>
-        <Label layoutX="-195" layoutY="265" text="Физические лица" >
+        <Label layoutX="-212" layoutY="207" text="Вероятности рождения" prefWidth="90" wrapText="true" textAlignment="RIGHT">
           <font>
-            <Font name="System" size="13.0" />
+            <Font name="System Bold" size="11.0" />
           </font>
         </Label>
-        <Label layoutX="-195" layoutY="285" text="Юридические лица" >
+        <Label layoutX="-197" layoutY="250" text="Время жизни" prefWidth="80" wrapText="true" textAlignment="RIGHT">
           <font>
-            <Font name="System" size="13.0" />
+            <Font name="System Bold" size="11.0" />
           </font>
         </Label>
-        <TextField fx:id="fieldN1" layoutX="-50" layoutY="260" prefWidth="35" />
-        <TextField fx:id="fieldN2" layoutX="-50" layoutY="285" prefWidth="35" />
+        <Label layoutX="-180" layoutY="283" text="Интеллект" prefWidth="80" wrapText="true" textAlignment="RIGHT">
+          <font>
+            <Font name="System Bold" size="11.0" />
+          </font>
+        </Label>
+        <Label layoutX="-212" layoutY="310" text="Приоритеты потоков" prefWidth="90" wrapText="true" textAlignment="RIGHT">
+          <font>
+            <Font name="System Bold" size="11.0" />
+          </font>
+        </Label>
 
-        <Label layoutX="-190" layoutY="310" text="Вероятности рождения" >
-          <font>
-            <Font name="System Bold" size="14.0" />
-          </font>
-        </Label>
-        <Label layoutX="-195" layoutY="335" text="Физические лица" >
-          <font>
-            <Font name="System" size="13.0" />
-          </font>
-        </Label>
-        <Label layoutX="-195" layoutY="355" text="Юридические лица" >
-          <font>
-            <Font name="System" size="13.0" />
-          </font>
-        </Label>
-        <ComboBox fx:id="boxP1" layoutX="-75" layoutY="330" />
-        <ComboBox fx:id="boxP2" layoutX="-75" layoutY="355" />
+        <TextField fx:id="fieldN1" layoutX="-120" layoutY="175" prefWidth="60" />
+        <TextField fx:id="fieldN2" layoutX="-60" layoutY="175" prefWidth="60" />
+        <ComboBox fx:id="boxP1" layoutX="-120" layoutY="210" />
+        <ComboBox fx:id="boxP2" layoutX="-60" layoutY="210" />
+        <TextField fx:id="fieldLifeTimePhy" layoutX="-120" layoutY="245" prefWidth="60" />
+        <TextField fx:id="fieldLifeTimeJur" layoutX="-60" layoutY="245" prefWidth="60" />
+        <Button fx:id="btnPhyIntellect" text="ON" onAction="#clickPhyIntellect" layoutX="-120" layoutY="280" prefWidth="60" />
+        <Button fx:id="btnJurIntellect" text="ON" onAction="#clickJurIntellect" layoutX="-60" layoutY="280" prefWidth="60"/>
+        <ComboBox fx:id="boxPhyPriority" layoutX="-120" layoutY="315" prefWidth="60" />
+        <ComboBox fx:id="boxJurPriority" layoutX="-60" layoutY="315" prefWidth="60"/>
 
-        <Label layoutX="-190" layoutY="380" text="Время жизни (сек)" >
+        <Label layoutX="-195" layoutY="555" text="Загрузить">
           <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Arial Bold" size="11.0" />
           </font>
         </Label>
-        <Label layoutX="-195" layoutY="405" text="Физические лица" >
+        <Label layoutX="-195" layoutY="580" text="Сохранить">
           <font>
-            <Font name="System" size="13.0" />
+            <Font name="Arial Bold" size="11.0" />
           </font>
         </Label>
-        <Label layoutX="-195" layoutY="425" text="Юридические лица" >
+        <Button text="из файла" fx:id="btnLoad" onAction="#clickLoadFromFile" layoutX="-130" layoutY="552" >
           <font>
-            <Font name="System" size="13.0" />
-          </font>
-        </Label>
-        <TextField fx:id="fieldLifeTimePhy" layoutX="-50" layoutY="400" prefWidth="35" />
-        <TextField fx:id="fieldLifeTimeJur" layoutX="-50" layoutY="425" prefWidth="35" />
-
-        <Button fx:id="btnCurrentObjects" text="Текущие объекты" onAction="#clickCurrentObjects" layoutX="-100" layoutY="35" prefHeight="52" prefWidth="90" wrapText="true">
-          <font>
-            <Font name="Arial Bold" size="15.0" />
+            <Font name="Arial" size="12.0" />
           </font>
         </Button>
-
-        <Label layoutX="-190" layoutY="450" text="Интеллект объектов" >
+        <Button text="в файл" fx:id="btnSave" onAction="#clickSaveToFile" layoutX="-130" layoutY="575" prefWidth="68">
           <font>
-            <Font name="System Bold" size="14.0" />
-          </font>
-        </Label>
-        <Label layoutX="-195" layoutY="475" text="Физические лица" >
-          <font>
-            <Font name="System" size="13.0" />
-          </font>
-        </Label>
-        <Label layoutX="-195" layoutY="495" text="Юридические лица" >
-          <font>
-            <Font name="System" size="13.0" />
-          </font>
-        </Label>
-
-        <Button fx:id="btnPhyIntellect" text="ON" onAction="#clickPhyIntellect" layoutX="-70" layoutY="470" prefWidth="70">
-          <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Arial" size="12.0" />
           </font>
         </Button>
-        <Button fx:id="btnJurIntellect" text="ON" onAction="#clickJurIntellect" layoutX="-70" layoutY="495" prefWidth="70">
+        <Button text="из БД" fx:id="btnLoadFromDB" onAction="#clickLoadFromDB"  layoutX="-62" layoutY="552" prefWidth="62" >
           <font>
-            <Font name="Arial" size="13.0" />
+            <Font name="Arial" size="12.0" />
           </font>
         </Button>
-
-        <Label layoutX="-190" layoutY="520" text="Приоритеты потоков" >
+        <Button text="в БД" fx:id="btnSaveToDB" onAction="#clickSaveToDB" layoutX="-62" layoutY="575" prefWidth="62" >
           <font>
-            <Font name="System Bold" size="14.0" />
+            <Font name="Arial" size="12.0" />
           </font>
-        </Label>
-        <Label layoutX="-195" layoutY="545" text="Физические лица" >
-          <font>
-            <Font name="System" size="13.0" />
-          </font>
-        </Label>
-        <Label layoutX="-195" layoutY="565" text="Юридические лица" >
-          <font>
-            <Font name="System" size="13.0" />
-          </font>
-        </Label>
-        <ComboBox fx:id="boxPhyPriority" layoutX="-75" layoutY="540" />
-        <ComboBox fx:id="boxJurPriority" layoutX="-75" layoutY="565" />
+        </Button>
 
         <MenuBar layoutX="-200">
           <menus>
@@ -183,22 +165,6 @@
         <Rectangle height="300" width="550" layoutX="550" layoutY="300" fill="#ffc500"/>
         <Rectangle height="300" width="550" layoutX="0" layoutY="300" fill="black"/>
         <Rectangle height="300" width="550" layoutX="550" layoutY="0" fill="black"/>
-
-        <Button text="Загрузить" fx:id="btnLoad" onAction="#clickLoadFromFile" layoutX="-190" layoutY="93" prefWidth="101">
-          <font>
-            <Font name="Arial Bold" size="15.0" />
-          </font>
-        </Button>
-        <Button text="Сохранить" fx:id="btnSave" onAction="#clickSaveToFile" layoutX="-190" layoutY="120">
-          <font>
-            <Font name="Arial Bold" size="15.0" />
-          </font>
-        </Button>
-        <Button text="Консоль&lt;/&gt;" fx:id="btnConsole" onAction="#openConsole" layoutX="-90" layoutY="93" prefWidth="90" prefHeight="54" wrapText="true" textAlignment="CENTER">
-          <font>
-            <Font name="Arial Bold" size="15.0" />
-          </font>
-        </Button>
 
       </children>
     </Pane>

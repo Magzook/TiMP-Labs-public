@@ -63,8 +63,8 @@ public class Controller {
             fieldN2.setText("2");
             fieldLifeTimePhy.setText("8");
             fieldLifeTimeJur.setText("30");
-            boxP1.setValue("80%"); // Значения для комбобоксов по умолчанию
-            boxP2.setValue("100%");
+            boxP1.setValue("0.8"); // Значения для комбобоксов по умолчанию
+            boxP2.setValue("1.0");
             boxPhyPriority.setValue(5);
             boxJurPriority.setValue(5);
         } catch (IOException e) {
@@ -75,9 +75,9 @@ public class Controller {
             btnStop.setDisable(true);
             menuStop.setDisable(true);
             // Заполнение комбобоксов
-            for (int value = 0; value <= 100; value += 10) {
-                boxP1.getItems().add(value + "%");
-                boxP2.getItems().add(value + "%");
+            for (int value = 1; value <= 10; value++) {
+                boxP1.getItems().add(value/10.0 + "");
+                boxP2.getItems().add(value/10.0 + "");
             }
             for (int value = 1; value <= 10; value++) {
                 boxPhyPriority.getItems().add(value);
@@ -102,8 +102,8 @@ public class Controller {
             hab.n2 = n2;
             PhysicalPerson.setLifeTime(lifeTimePhy); // Установление времени жизнм
             JuridicalPerson.setLifeTime(lifeTimeJur);
-            hab.p1 = Float.parseFloat(boxP1.getValue().replace("%", "")) / 100; // Установление вероятностей рождения
-            hab.p2 = Float.parseFloat(boxP2.getValue().replace("%", "")) / 100;
+            hab.p1 = Float.parseFloat(boxP1.getValue()); // Установление вероятностей рождения
+            hab.p2 = Float.parseFloat(boxP2.getValue());
             AIPhysical.getInstance().setPriority(boxPhyPriority.getValue());
             AIJuridical.getInstance().setPriority(boxJurPriority.getValue());
             fieldN1.setDisable(true);
@@ -253,6 +253,14 @@ public class Controller {
     @FXML
     public void clickSaveToFile() throws IOException {
         FileMaster.saveObjects();
+    }
+    @FXML
+    public void clickLoadFromDB() {
+
+    }
+    @FXML
+    public void clickSaveToDB() {
+
     }
     @FXML
     public void openConsole() throws IOException {
