@@ -3,7 +3,6 @@ package client.model;
 import client.controllers.Habitat;
 import javafx.application.Platform;
 import javafx.scene.image.ImageView;
-
 import java.io.Serializable;
 import java.util.Random;
 

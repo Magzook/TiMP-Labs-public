@@ -1,5 +1,6 @@
 package client.controllers;
 
+import client.api.Client;
 import client.console.MyConsole;
 import client.model.AIJuridical;
 import client.model.AIPhysical;
@@ -32,7 +33,6 @@ public class Controller {
         return modalPane;
     }
 
-
     @FXML
     public Button btnStart, btnStop, btnPhyIntellect, btnJurIntellect;
     @FXML
@@ -51,6 +51,12 @@ public class Controller {
     public CheckMenuItem menuShowInfo;
     @FXML
     public RadioMenuItem menuShowTime, menuHideTime;
+    @FXML
+    public TextArea userListBox;
+    @FXML
+    public ComboBox<String> syncSettingsWithBox;
+    @FXML
+    public Label labelSettingsSource, labelOfflineMode;
 
     public void setParameters() {
         try {
@@ -198,6 +204,7 @@ public class Controller {
     @FXML
     public void exitApp() throws IOException {
         FileMaster.saveConfig();
+        if (!labelOfflineMode.isVisible()) Client.disconnectFromServer();
         System.exit(0);
     }
     @FXML
@@ -265,6 +272,12 @@ public class Controller {
     @FXML
     public void openConsole() throws IOException {
         new MyConsole();
+    }
+    @FXML
+    public void clickSyncSettings() throws IOException {
+        if (labelOfflineMode.isVisible()) return;
+        String userName = syncSettingsWithBox.getValue();
+        Client.sendSettingsToUser(userName, boxP1.getValue(), boxP2.getValue());
     }
     @FXML
     void keyPressed(KeyEvent keyEvent) {

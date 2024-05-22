@@ -3,7 +3,6 @@ package client.controllers;
 import client.model.JuridicalPerson;
 import client.model.Person;
 import client.model.PhysicalPerson;
-
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Random;

@@ -8,14 +8,13 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
-
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Statistics {
     public Timer timer;
-    public boolean timeFlag = true, startFlag, restartFlag = false/*, firstActionFlag = true*/;
+    public boolean timeFlag = true, startFlag, restartFlag = false;
     public int seconds = -1, minutes = 0;
     public Controller mainController;
     private static Statistics instance;
@@ -71,7 +70,6 @@ public class Statistics {
             seconds = -1;
             minutes = 0;
             restartFlag = false;
-            //firstActionFlag = false;
         }
         timer = new Timer();
         startFlag = true;

@@ -5,7 +5,6 @@
 <?import javafx.scene.text.* ?>
 <?import javafx.scene.shape.Rectangle?>
 
-<?import javafx.geometry.Insets?>
 <GridPane fx:id="pane" alignment="CENTER" focusTraversable="true" onKeyPressed="#keyPressed" prefHeight="750.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.Controller">
   <children>
     <Pane fx:id="modalPane" focusTraversable="true" onKeyPressed="#keyPressed" prefHeight="750.0" prefWidth="900.0">
@@ -82,17 +81,22 @@
             <Font name="System Bold" size="11.0" />
           </font>
         </Label>
-        <Label layoutX="-197" layoutY="250" text="Время жизни" prefWidth="80" wrapText="true" textAlignment="RIGHT">
+        <Label fx:id="labelSettingsSource" layoutX="-195" layoutY="235" textFill="crimson" visible="false">
+          <font>
+            <Font name="System Bold" size="11.0"/>
+          </font>
+        </Label>
+        <Label layoutX="-197" layoutY="265" text="Время жизни" prefWidth="80" wrapText="true" textAlignment="RIGHT">
           <font>
             <Font name="System Bold" size="11.0" />
           </font>
         </Label>
-        <Label layoutX="-180" layoutY="283" text="Интеллект" prefWidth="80" wrapText="true" textAlignment="RIGHT">
+        <Label layoutX="-180" layoutY="298" text="Интеллект" prefWidth="80" wrapText="true" textAlignment="RIGHT">
           <font>
             <Font name="System Bold" size="11.0" />
           </font>
         </Label>
-        <Label layoutX="-212" layoutY="310" text="Приоритеты потоков" prefWidth="90" wrapText="true" textAlignment="RIGHT">
+        <Label layoutX="-212" layoutY="325" text="Приоритеты потоков" prefWidth="90" wrapText="true" textAlignment="RIGHT">
           <font>
             <Font name="System Bold" size="11.0" />
           </font>
@@ -100,14 +104,33 @@
 
         <TextField fx:id="fieldN1" layoutX="-120" layoutY="175" prefWidth="60" />
         <TextField fx:id="fieldN2" layoutX="-60" layoutY="175" prefWidth="60" />
-        <ComboBox fx:id="boxP1" layoutX="-120" layoutY="210" />
-        <ComboBox fx:id="boxP2" layoutX="-60" layoutY="210" />
-        <TextField fx:id="fieldLifeTimePhy" layoutX="-120" layoutY="245" prefWidth="60" />
-        <TextField fx:id="fieldLifeTimeJur" layoutX="-60" layoutY="245" prefWidth="60" />
-        <Button fx:id="btnPhyIntellect" text="ON" onAction="#clickPhyIntellect" layoutX="-120" layoutY="280" prefWidth="60" />
-        <Button fx:id="btnJurIntellect" text="ON" onAction="#clickJurIntellect" layoutX="-60" layoutY="280" prefWidth="60"/>
-        <ComboBox fx:id="boxPhyPriority" layoutX="-120" layoutY="315" prefWidth="60" />
-        <ComboBox fx:id="boxJurPriority" layoutX="-60" layoutY="315" prefWidth="60"/>
+        <ComboBox fx:id="boxP1" layoutX="-120" layoutY="210" onAction="#clickSyncSettings" />
+        <ComboBox fx:id="boxP2" layoutX="-60" layoutY="210" onAction="#clickSyncSettings"/>
+
+        <TextField fx:id="fieldLifeTimePhy" layoutX="-120" layoutY="260" prefWidth="60" />
+        <TextField fx:id="fieldLifeTimeJur" layoutX="-60" layoutY="260" prefWidth="60" />
+        <Button fx:id="btnPhyIntellect" text="ON" onAction="#clickPhyIntellect" layoutX="-120" layoutY="295" prefWidth="60" />
+        <Button fx:id="btnJurIntellect" text="ON" onAction="#clickJurIntellect" layoutX="-60" layoutY="295" prefWidth="60"/>
+        <ComboBox fx:id="boxPhyPriority" layoutX="-120" layoutY="330" prefWidth="60" />
+        <ComboBox fx:id="boxJurPriority" layoutX="-60" layoutY="330" prefWidth="60"/>
+
+        <Label text="Онлайн:" layoutX="-195" layoutY="360"  prefWidth="150">
+          <font>
+            <Font name="System Bold" size="11.0" />
+          </font>
+        </Label>
+        <Label text="[Нет соединения]" fx:id="labelOfflineMode" layoutX="-150" layoutY="360" textFill="crimson" visible="false">
+          <font>
+            <Font name="System Bold" size="11.0" />
+          </font>
+        </Label>
+        <TextArea fx:id="userListBox" layoutX="-195" layoutY="380" editable="false" prefWidth="190" prefHeight="130"/>
+        <Label text="Синхронизировать вероятности с:" layoutX="-195" layoutY="510">
+          <font>
+            <Font name="System Bold" size="11.0" />
+          </font>
+        </Label>
+        <ComboBox fx:id="syncSettingsWithBox" onAction="#clickSyncSettings" layoutX="-195" layoutY="525"/>
 
         <Label layoutX="-195" layoutY="555" text="Загрузить">
           <font>

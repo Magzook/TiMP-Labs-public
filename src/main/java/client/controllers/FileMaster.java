@@ -3,7 +3,6 @@ package client.controllers;
 import client.model.*;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.util.HashMap;
 import java.util.TreeSet;

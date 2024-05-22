@@ -1,10 +1,8 @@
 package client.model;
 
 import client.controllers.Habitat;
-
 import java.util.Random;
 import java.util.Vector;
-
 import static java.lang.Math.*;
 
 public abstract class BaseAI extends Thread {
