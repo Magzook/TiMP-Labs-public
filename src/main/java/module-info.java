@@ -1,10 +1,9 @@
 module client {
     requires javafx.controls;
     requires javafx.fxml;
-    //requires jdk.jfr;
+    requires java.sql;
+    requires org.postgresql.jdbc;
 
-
-    //opens client to javafx.fxml;
     exports client.model;
     exports client.main;
     exports client.controllers;

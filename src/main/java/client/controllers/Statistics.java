@@ -1,16 +1,12 @@
 package client.controllers;
 
-import client.model.AIJuridical;
-import client.model.AIPhysical;
-import client.model.JuridicalPerson;
-import client.model.PhysicalPerson;
+import client.model.*;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
-import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import java.util.*;
 
 public class Statistics {
     public Timer timer;
@@ -163,5 +159,30 @@ public class Statistics {
         else {
             AIJuridical.getInstance().isActive = false;
         }
+    }
+
+    public void pauseAndClear() { // Остановка симуляции с возможностью продолжения со стиранием объектов и загрузкой новых
+        Habitat hab = Habitat.getInstance();
+        // Остановить текущую симуляцию и потоки
+        if (timer != null) timer.cancel();
+        restartFlag = false;
+        AIPhysical.getInstance().isActive = false;
+        AIJuridical.getInstance().isActive = false;
+        // Включить кнопки
+        mainController.enableButtons();
+        // Очистить изображения
+        hab.getObjCollection().forEach((tmp) -> mainController.getPane().getChildren().remove(tmp.getImageView()));
+        // Очистить старые коллекции
+        Vector<Person> objCollection = hab.getObjCollection();
+        HashMap<Integer, Integer> bornCollection = hab.getBornCollection();
+        TreeSet<Integer> idCollection = hab.getIdCollection();
+        objCollection.clear();
+        bornCollection.clear();
+        idCollection.clear();
+    }
+    public void prepareTimer(int time) {
+        minutes = time / 60;
+        seconds = time % 60;
+        if (seconds != -1) updateTimer();
     }
 }

@@ -1,12 +1,11 @@
 package client.controllers;
 
 import client.api.Client;
+import client.api.DatabaseHandler;
 import client.console.MyConsole;
-import client.model.AIJuridical;
-import client.model.AIPhysical;
-import client.model.JuridicalPerson;
-import client.model.PhysicalPerson;
+import client.model.*;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,7 +13,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Map;
+import java.util.*;
 
 public class Controller {
     @FXML
@@ -56,7 +55,7 @@ public class Controller {
     @FXML
     public ComboBox<String> syncSettingsWithBox;
     @FXML
-    public Label labelSettingsSource, labelOfflineMode;
+    public Label labelSettingsSource, labelConnectionInfo;
 
     public void setParameters() {
         try {
@@ -204,7 +203,7 @@ public class Controller {
     @FXML
     public void exitApp() throws IOException {
         FileMaster.saveConfig();
-        if (!labelOfflineMode.isVisible()) Client.disconnectFromServer();
+        if (!labelConnectionInfo.getText().equals("[Нет соединения]")) Client.disconnectFromServer();
         System.exit(0);
     }
     @FXML
@@ -263,11 +262,13 @@ public class Controller {
     }
     @FXML
     public void clickLoadFromDB() {
-
+        String mode = DatabaseHandler.askOption("load");
+        if (!mode.equals("none")) DatabaseHandler.loadFromDB(mode);
     }
     @FXML
     public void clickSaveToDB() {
-
+        String mode = DatabaseHandler.askOption("save");
+        if (!mode.equals("none")) DatabaseHandler.saveToDB(mode);
     }
     @FXML
     public void openConsole() throws IOException {
@@ -275,7 +276,7 @@ public class Controller {
     }
     @FXML
     public void clickSyncSettings() throws IOException {
-        if (labelOfflineMode.isVisible()) return;
+        if (labelConnectionInfo.getText().equals("[Нет соединения]")) return;
         String userName = syncSettingsWithBox.getValue();
         Client.sendSettingsToUser(userName, boxP1.getValue(), boxP2.getValue());
     }
@@ -310,5 +311,21 @@ public class Controller {
                 }
                 break;
         }
+    }
+
+    public void enableButtons() {
+        btnStart.setDisable(false);
+        menuStart.setDisable(false);
+        btnStop.setDisable(true);
+        menuStop.setDisable(true);
+
+        fieldN1.setDisable(false);
+        fieldN2.setDisable(false);
+        boxP1.setDisable(false);
+        boxP2.setDisable(false);
+        fieldLifeTimePhy.setDisable(false);
+        fieldLifeTimeJur.setDisable(false);
+        boxPhyPriority.setDisable(false);
+        boxJurPriority.setDisable(false);
     }
 }

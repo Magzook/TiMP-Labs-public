@@ -6,13 +6,26 @@ import java.util.Vector;
 import static java.lang.Math.*;
 
 public abstract class BaseAI extends Thread {
-    protected final double SHIFT_DIAGONAL = 5; // На сколько пикселей смещается картинка за один сдвиг
+    protected static final double SHIFT_DIAGONAL = 5; // На сколько пикселей смещается картинка за один сдвиг
     protected String objectType;
     protected double leftBoundX, rightBoundX, upperBoundY, lowerBoundY;
     public boolean isActive = false;
     public String monitor; // дополнительная заглушка исключительно для корректной работы notify()
     public BaseAI(String name) {
         super(name);
+    }
+    public static void calculateShifting(Person obj) {
+        // Вычисление параметров сдвига объекта
+        double currentX = obj.getX();
+        double currentY = obj.getY();
+        double distanceX = abs(currentX - obj.destinationX);
+        double distanceY = abs(currentY - obj.destinationY);
+        obj.shiftsTotal = (int)(sqrt(pow(distanceX, 2) + pow(distanceY, 2)) / SHIFT_DIAGONAL);
+        double angle = atan(distanceY / distanceX);
+        obj.shiftX = SHIFT_DIAGONAL * cos(angle);
+        obj.shiftY = SHIFT_DIAGONAL * sin(angle);
+        if (currentX > obj.destinationX) obj.shiftX *= -1;
+        if (currentY > obj.destinationY) obj.shiftY *= -1;
     }
     public void run() {
         Vector<Person> objects = Habitat.getInstance().getObjCollection();
@@ -34,31 +47,22 @@ public abstract class BaseAI extends Thread {
                         if ((obj.getClass().getSimpleName()).equals(objectType)) {
                             double currentX = obj.getX();
                             double currentY = obj.getY();
-                            if (obj.hasToTravel == null) { // Первая проверка объекта
+                            if (obj.hasToTravel == -1) { // Первая проверка объекта
                                 // Проверить, появилась ли картинка в "своей" части области симуляции
                                 if (!(currentX >= leftBoundX && currentX <= rightBoundX && currentY >= lowerBoundY && currentY <= upperBoundY)) {
-                                    obj.hasToTravel = true;
+                                    obj.hasToTravel = 1;
                                     obj.destinationX = rand.nextDouble(leftBoundX, rightBoundX);
                                     obj.destinationY = rand.nextDouble(lowerBoundY, upperBoundY);
-
-                                    double distanceX = abs(currentX - obj.destinationX);
-                                    double distanceY = abs(currentY - obj.destinationY);
-                                    obj.shiftsTotal = (int)(sqrt(pow(distanceX, 2) + pow(distanceY, 2)) / SHIFT_DIAGONAL);
-                                    double angle = atan(distanceY / distanceX);
-                                    obj.shiftX = SHIFT_DIAGONAL * cos(angle);
-                                    obj.shiftY = SHIFT_DIAGONAL * sin(angle);
-                                    if (currentX > obj.destinationX) obj.shiftX *= -1;
-                                    if (currentY > obj.destinationY) obj.shiftY *= -1;
-
+                                    calculateShifting(obj);
                                 }
                                 else {
-                                    obj.hasToTravel = false;
+                                    obj.hasToTravel = 0;
                                 }
                             }
 
-                            if (obj.hasToTravel) {
+                            if (obj.hasToTravel == 1) {
                                 if (obj.shiftsTotal == 0) {
-                                    obj.hasToTravel = false;
+                                    obj.hasToTravel = 0;
                                     obj.moveTo(obj.destinationX, obj.destinationY);
 
                                 }

@@ -79,24 +79,9 @@ public class FileMaster {
         Habitat hab = Habitat.getInstance();
         Statistics st = Statistics.getInstance();
         Controller ct = st.mainController;
-        // Остановить текущую симуляцию и потоки
-        if (st.timer != null) st.timer.cancel();
-        st.restartFlag = false;
-        AIPhysical.getInstance().isActive = false;
-        AIJuridical.getInstance().isActive = false;
-        ct.btnStart.setDisable(false);
-        ct.menuStart.setDisable(false);
-        ct.btnStop.setDisable(true);
-        ct.menuStop.setDisable(true);
-        // Очистить изображения
-        hab.getObjCollection().forEach((tmp) -> ct.getPane().getChildren().remove(tmp.getImageView()));
-        // Очистить старые коллекции
-        Vector<Person> objCollection = hab.getObjCollection();
-        HashMap<Integer, Integer> bornCollection = hab.getBornCollection();
-        TreeSet<Integer> idCollection = hab.getIdCollection();
-        objCollection.clear();
-        bornCollection.clear();
-        idCollection.clear();
+
+        // Остановить симуляцию с возможностью продолжения, очистить старые объекты
+        st.pauseAndClear();
         // Чтение всех объектов, времён рождения, координат
         int size = ois.readInt();
         for (int i = 0; i < size; i++) {
@@ -104,18 +89,16 @@ public class FileMaster {
             int bornTime = ois.readInt();
             double currentX = ois.readDouble();
             double currentY = ois.readDouble();
-            objCollection.add(obj);
-            bornCollection.put(obj.getId(), bornTime);
-            idCollection.add(obj.getId());
+            hab.getObjCollection().add(obj);
+            hab.getBornCollection().put(obj.getId(), bornTime);
+            hab.getIdCollection().add(obj.getId());
             obj.createImageView(currentX, currentY);
             ct.getPane().getChildren().add(obj.getImageView());
         }
         PhysicalPerson.spawnedCount = ois.readInt(); // Число созданных за все время объектов
         JuridicalPerson.spawnedCount = ois.readInt();
         int time = ois.readInt(); // Текущее время
-        st.minutes = time / 60;
-        st.seconds = time % 60;
-        if (st.seconds != -1) st.updateTimer();
+        st.prepareTimer(time);
 
         ois.close();
         fis.close();
@@ -137,7 +120,7 @@ public class FileMaster {
                 oos.writeDouble(obj.getY()); // Координата Y
             }
         }
-        oos.writeInt(PhysicalPerson.spawnedCount); // Количество живых объектов одного типа
+        oos.writeInt(PhysicalPerson.spawnedCount); // Число созданных за всё время объектов одного типа
         oos.writeInt(JuridicalPerson.spawnedCount);
         oos.writeInt(Statistics.getInstance().getTime()); // Текущее время
         oos.close();

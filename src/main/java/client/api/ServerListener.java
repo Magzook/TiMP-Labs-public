@@ -1,7 +1,10 @@
 package client.api;
 
+import client.controllers.Controller;
 import client.controllers.Statistics;
 import dto.*;
+import javafx.application.Platform;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.SocketException;
@@ -36,7 +39,8 @@ public class ServerListener extends Thread {
             }
         } catch (SocketException e) {
             System.out.println("Сервер закрыл соединение");
-            Statistics.getInstance().mainController.labelOfflineMode.setVisible(true);
+            Controller ct = Statistics.getInstance().mainController;
+            Platform.runLater(() -> ct.labelConnectionInfo.setText("[Нет соединения]"));
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

@@ -1,5 +1,6 @@
 package client.model;
 
+import client.controllers.Statistics;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.io.FileInputStream;
@@ -22,6 +23,13 @@ public class JuridicalPerson extends Person {
         super();
         createImageView(x, y);
     }
+
+    public JuridicalPerson(int id, double posX, double posY, double destX, double destY, int hasToTravel) {
+        super(id, destX, destY, hasToTravel);
+        createImageView(posX, posY);
+        Statistics.getInstance().mainController.getPane().getChildren().add(this.getImageView());
+    }
+
     public void createImageView(double x, double y) {
         imageView = new ImageView(image);
         imageView.setX(x);

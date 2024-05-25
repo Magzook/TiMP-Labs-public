@@ -119,7 +119,7 @@
             <Font name="System Bold" size="11.0" />
           </font>
         </Label>
-        <Label text="[Нет соединения]" fx:id="labelOfflineMode" layoutX="-150" layoutY="360" textFill="crimson" visible="false">
+        <Label fx:id="labelConnectionInfo" layoutX="-150" layoutY="360" textFill="crimson">
           <font>
             <Font name="System Bold" size="11.0" />
           </font>
